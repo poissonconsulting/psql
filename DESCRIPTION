@@ -1,10 +1,14 @@
 Package: psql
-Title: What the Package Does (One Line, Title Case)
+Title: Connecting, reading and writing to PostgreSQL databases
 Version: 0.0.0.9000
 Authors@R: 
     person("Ayla", "Pearson", , "ayla@poissonconsulting.ca", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7388-1222"))
-Description: What the package does (one paragraph).
+Description: A package designed to streamline interacting with PostgreSQL 
+  databases. You can easily connect, create databases, add and access your data, 
+  load tables as R objects. This allows users who are not familar with 
+  PostgreSQL to easily pull and update their data that is stored in a PostgreSQL 
+  database.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
