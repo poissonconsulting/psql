@@ -15,6 +15,9 @@
 #'  user name and password should be passed as string. The port is passed as an
 #'  integer.
 #'
+#'  If no config details are passed through it will connect to your local
+#'  cluster.
+#'
 #'
 #' @examples
 #' \dontrun{
