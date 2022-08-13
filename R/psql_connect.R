@@ -26,7 +26,17 @@ psql_connect <- function(config_filepath = getOption("psql.config", NULL),
   chk::chk_null_or(config_filepath, vld = chk::vld_string)
   chk::chk_null_or(value, vld = chk::vld_string)
 
-  config <- config::get(value = value, file = config_filepath)
+  if (is.null(config_filepath) & is.null(value)) {
+    config <- list(
+      host = NULL,
+      port = NULL,
+      dbname = NULL,
+      user = NULL,
+      password = NULL,
+    )
+  } else {
+    config <- config::get(value = value, file = config_filepath)
+  }
 
   conn <-  DBI::dbConnect(
     RPostgres::Postgres(),
@@ -39,3 +49,6 @@ psql_connect <- function(config_filepath = getOption("psql.config", NULL),
 
   conn
 }
+
+# when NULL is passed, then its just the base local connection
+# two options: 1 is the NULL causes an error, the 2nd is its a local connection
