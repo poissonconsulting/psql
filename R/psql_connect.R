@@ -1,9 +1,7 @@
 #' Connect to PostgreSQL Database
 #'
-#' This function uses the information from a yaml configuration file that contains
-#' the host, port, database name, username and password to make a connection
-#' with a postgres database. When no file is present it will give you a local
-#' connection back.
+#' Connect to the default local database or a specific database by supplying
+#' the file path for a config.yml file.
 #'
 #' @param config_filepath A string of a file path to the yaml configuration file.
 #' The default value grabs the file path from the psql.config option.
@@ -11,18 +9,19 @@
 #' fomr the psql.value option.
 #'
 #' @return Returns a postgres connection
-#' @details The function requires for a host, port, database name, username and
-#'  password is present in the config file given. The host, database name,
-#'  user name and password should be passed as string. The port is passed as an
-#'  integer.
+#' @details The yml file will use contain connection details for: host, port,
+#'  dbname, user and password. The host, database name, user name and password
+#'  should be passed as string. The port is passed as an integer.
+#'  The function uses `config::get()` to read the config file, check there for
+#'  more information on reading in the config data.
 #'
 #'  If no config details are passed through it will connect to your local
 #'  cluster.
 #'
-#'
 #' @examples
 #' \dontrun{
 #' psql_connect()
+#' psql_connect(config_filepath = "config.yml", value = "database")
 #' }
 #'
 psql_connect <- function(config_filepath = getOption("psql.config", NULL),
