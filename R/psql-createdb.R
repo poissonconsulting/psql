@@ -1,8 +1,7 @@
 #' Create postgreSQL database
 #'
+#' @inheritParams params
 #' @param dbname
-#' @param config_path
-#' @param config_value
 #'
 #' @return
 #' @export

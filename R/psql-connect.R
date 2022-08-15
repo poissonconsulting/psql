@@ -3,10 +3,7 @@
 #' Connect to a database, either supply connection details though a config file
 #'  or connect to local default database.
 #'
-#' @param config_path A string of a file path to the yaml configuration file.
-#' The default value grabs the file path from the psql.config_path option.
-#' @param config_value A string of the name of value. The default value grabs the value
-#' from the psql.value option.
+#' @inheritParams params
 #'
 #' @return Returns a database connection
 #' @details The yml file can contain connection details for: host, port,
