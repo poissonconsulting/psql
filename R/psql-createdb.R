@@ -3,19 +3,26 @@
 #' @inheritParams params
 #' @param dbname
 #'
-#' @return
+#' @return Returns TRUE
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' psql_createdb("new_database")
+#'
+#' psql_createdb("new_database", config_path = "keys/config.yml")
+#' }
 psql_createdb <- function(dbname,
                           config_path = getOption("psql.config_path", NULL),
                           config_value = getOption("psql.value", NULL)) {
+  chk::chk_string(dbname)
 
   conn <- psql_connect(config_path, config_value)
   on.exit(DBI::dbDisconnect(conn))
 
   cmd <- paste0("CREATE DATABASE ", dbname, ";")
-  DBI::dbSendQuery(conn, cmd)
+  result <- DBI::dbSendQuery(conn, cmd)
+  DBI::dbClearResult(result)
 
   TRUE
 }
