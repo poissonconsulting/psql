@@ -35,12 +35,11 @@ psql_connect <- function(config_filepath = getOption("psql.config", NULL),
       port = NULL,
       dbname = NULL,
       user = NULL,
-      password = NULL,
+      password = NULL
     )
   } else {
     config <- config::get(value = value, file = config_filepath)
   }
-
   conn <-  DBI::dbConnect(
     RPostgres::Postgres(),
     host = config$host,
