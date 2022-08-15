@@ -2,7 +2,8 @@
 #'
 #' This function uses the information from a yaml configuration file that contains
 #' the host, port, database name, username and password to make a connection
-#' with a postgres database.
+#' with a postgres database. When no file is present it will give you a local
+#' connection back.
 #'
 #' @param config_filepath A string of a file path to the yaml configuration file.
 #' The default value grabs the file path from the psql.config option.
@@ -51,6 +52,3 @@ psql_connect <- function(config_filepath = getOption("psql.config", NULL),
 
   conn
 }
-
-# when NULL is passed, then its just the base local connection
-# two options: 1 is the NULL causes an error, the 2nd is its a local connection
