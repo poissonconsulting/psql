@@ -5,16 +5,16 @@
 \title{Connect to PostgreSQL Database}
 \usage{
 psql_connect(
-  config_filepath = getOption("psql.config", NULL),
+  config_path = getOption("psql.config", NULL),
   value = getOption("psql.value", NULL)
 )
 }
 \arguments{
-\item{config_filepath}{A string of a file path to the yaml configuration file.
-The default value grabs the file path from the psql.config option.}
+\item{config_path}{A string of a file path to the yaml configuration file.
+The default value grabs the file path from the psql.config_path option.}
 
 \item{value}{A string of the name of value. The default value grabs the value
-fomr the psql.value option.}
+from the psql.value option.}
 }
 \value{
 Returns a postgres connection
@@ -36,7 +36,7 @@ cluster.
 \examples{
 \dontrun{
 psql_connect()
-psql_connect(config_filepath = "config.yml", value = "database")
+psql_connect(config_path = "config.yml", value = "database")
 }
 
 }
