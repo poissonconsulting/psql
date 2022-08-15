@@ -1,0 +1,6 @@
+default:
+  user: "dbmasteruser"
+  host: !expr Sys.getenv("DM_HOST")
+  dbname: "dbmaster"
+  port: 5432
+  password: !expr Sys.getenv("DM_TEST_PASS")
