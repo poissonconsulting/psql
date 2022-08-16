@@ -10,7 +10,7 @@
 #'  the name of the `tbl` argument.
 #' @param schema A string of the schema name. Default value is `"public"`.
 #'
-#' @return
+#' @return returns a scalar numeric.
 #' @export
 #' @details The function open and closes its own database connection. You do not
 #' need to close the database connection afterwards.
@@ -42,6 +42,4 @@ psql_add_data <- function(
     name = DBI::Id(schema = schema, table = tbl_name),
     value = tbl
   )
-
-  TRUE
 }
