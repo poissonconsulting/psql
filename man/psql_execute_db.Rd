@@ -23,7 +23,12 @@ from the psql.value option.}
 A scalar numeric of the number of rows affected by the statement.
 }
 \description{
-Execute SQL statement for PostgreSQL database
+Execute PostgreSQL statements.
+}
+\details{
+The function open and closes its own database connection. You do not
+need to close the database connection afterwards.
+This function is a wrapper on \verb{DBI::dbExecute().}
 }
 \examples{
 \dontrun{

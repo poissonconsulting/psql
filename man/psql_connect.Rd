@@ -2,7 +2,7 @@
 % Please edit documentation in R/psql-connect.R
 \name{psql_connect}
 \alias{psql_connect}
-\title{Connect to PostgreSQL Database}
+\title{Connect to PostgreSQL database}
 \usage{
 psql_connect(
   config_path = getOption("psql.config_path", NULL),
@@ -17,7 +17,7 @@ The default value grabs the file path from the psql.config_path option.}
 from the psql.value option.}
 }
 \value{
-Returns a database connection
+returns an S4 object that inherits from DBIConnection.
 }
 \description{
 Connect to a database, either supply connection details though a config file

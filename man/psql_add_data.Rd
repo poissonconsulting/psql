@@ -2,7 +2,7 @@
 % Please edit documentation in R/psql-add-data.R
 \name{psql_add_data}
 \alias{psql_add_data}
-\title{Add data to database}
+\title{Add data to PostgreSQL database}
 \usage{
 psql_add_data(
   tbl,

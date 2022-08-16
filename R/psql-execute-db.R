@@ -1,10 +1,15 @@
 #' Execute SQL statement for PostgreSQL database
 #'
+#' Execute PostgreSQL statements.
+#'
 #' @inheritParams params
 #' @param sql A string of the SQL statement to execute.
 #'
 #' @return A scalar numeric of the number of rows affected by the statement.
 #' @export
+#' @details The function open and closes its own database connection. You do not
+#' need to close the database connection afterwards.
+#' This function is a wrapper on `DBI::dbExecute().`
 #'
 #' @examples
 #' \dontrun{

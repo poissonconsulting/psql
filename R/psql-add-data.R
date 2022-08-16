@@ -1,4 +1,4 @@
-#' Add data to database
+#' Add data to PostgreSQL database
 #'
 #' Add data with a data frame to your PostgreSQL database. The data frame name
 #' must match the table name in your database, if not use the `tbl_name`
@@ -29,8 +29,8 @@ psql_add_data <- function(
     config_path = getOption("psql.config_path", NULL),
     config_value = getOption("psql.value", NULL)
   ) {
-
   chk::chk_string(schema)
+
   if (is.null(tbl_name)) tbl_name <- deparse((substitute(tbl)))
   chk::chk_string(tbl_name)
 

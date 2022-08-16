@@ -25,10 +25,13 @@ Returns TRUE
 \description{
 Create PostgreSQL database
 }
+\details{
+The function open and closes its own database connection. You do not
+need to close the database connection afterwards.
+}
 \examples{
 \dontrun{
 psql_createdb("new_database")
-
 psql_createdb("new_database", config_path = "keys/config.yml")
 }
 }

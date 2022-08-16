@@ -1,11 +1,11 @@
-#' Connect to PostgreSQL Database
+#' Connect to PostgreSQL database
 #'
 #' Connect to a database, either supply connection details though a config file
 #'  or connect to local default database.
 #'
 #' @inheritParams params
 #'
-#' @return Returns a database connection
+#' @return returns an S4 object that inherits from DBIConnection.
 #' @details The yml file can contain connection details for: host, port,
 #'  dbname, user and password. The host, database name, user name and password
 #'  should be passed as string. The port is passed as an integer.
@@ -30,8 +30,10 @@
 #' DBI::dbDisconnect(conn)
 #' }
 #'
-psql_connect <- function(config_path = getOption("psql.config_path", NULL),
-                         config_value = getOption("psql.value", NULL)) {
+psql_connect <- function(
+    config_path = getOption("psql.config_path", NULL),
+    config_value = getOption("psql.value", NULL)
+  ) {
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
