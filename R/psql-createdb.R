@@ -1,7 +1,7 @@
-#' Create postgreSQL database
+#' Create PostgreSQL database
 #'
 #' @inheritParams params
-#' @param dbname
+#' @param dbname A string of the name of the new database to create.
 #'
 #' @return Returns TRUE
 #' @export
