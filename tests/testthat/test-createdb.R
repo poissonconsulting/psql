@@ -2,6 +2,7 @@
 
 test_that("creates new database", {
   skip_on_ci()
+  skip("skip msg")
   expect_true(psql_createdb("newdb"))
 })
 
