@@ -2,6 +2,8 @@
 #'
 #' @inheritParams params
 #' @param tbl A dataframe that
+#' @param tbl_name A dataframe that
+#' @param schema A dataframe that
 #'
 #' @return
 #' @export
@@ -16,16 +18,16 @@ psql_add_data <- function(
   ) {
 
   chk::chk_string(schema)
-  if (is.null(tbl_name)) tbl_name <- deparse_backtick_chk((substitute(tbl)))
+  if (is.null(tbl_name)) tbl_name <- deparse((substitute(tbl)))
   chk::chk_string(tbl_name)
 
   conn <- psql_connect(config_path, config_value)
   on.exit(DBI::dbDisconnect(conn))
 
-  dbAppendTable(
+  DBI::dbAppendTable(
     conn = conn,
-    name = Id(schema = schema, table = tbl_name),
-    value = data
+    name = DBI::Id(schema = schema, table = tbl_name),
+    value = tbl
   )
 
   TRUE

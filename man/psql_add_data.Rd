@@ -15,6 +15,10 @@ psql_add_data(
 \arguments{
 \item{tbl}{A dataframe that}
 
+\item{schema}{A dataframe that}
+
+\item{tbl_name}{A dataframe that}
+
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
 
