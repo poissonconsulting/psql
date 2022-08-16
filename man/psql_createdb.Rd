@@ -2,7 +2,7 @@
 % Please edit documentation in R/psql-createdb.R
 \name{psql_createdb}
 \alias{psql_createdb}
-\title{Create postgreSQL database}
+\title{Create PostgreSQL database}
 \usage{
 psql_createdb(
   dbname,
@@ -11,7 +11,7 @@ psql_createdb(
 )
 }
 \arguments{
-\item{dbname}{}
+\item{dbname}{A string of the name of the new database to create.}
 
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
@@ -23,7 +23,7 @@ from the psql.value option.}
 Returns TRUE
 }
 \description{
-Create postgreSQL database
+Create PostgreSQL database
 }
 \examples{
 \dontrun{

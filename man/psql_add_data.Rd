@@ -2,7 +2,7 @@
 % Please edit documentation in R/psql-add-data.R
 \name{psql_add_data}
 \alias{psql_add_data}
-\title{Title}
+\title{Add data to database}
 \usage{
 psql_add_data(
   tbl,
@@ -13,11 +13,12 @@ psql_add_data(
 )
 }
 \arguments{
-\item{tbl}{A dataframe that}
+\item{tbl}{The data frame to add to the database.}
 
-\item{schema}{A dataframe that}
+\item{schema}{A string of the schema name. Default value is \code{"public"}.}
 
-\item{tbl_name}{A dataframe that}
+\item{tbl_name}{A string indicating the name of the table. Default is to use
+the name of the \code{tbl} argument.}
 
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
@@ -26,5 +27,19 @@ The default value grabs the file path from the psql.config_path option.}
 from the psql.value option.}
 }
 \description{
-Title
+Add data with a data frame to your PostgreSQL database. The data frame name
+must match the table name in your database, if not use the \code{tbl_name}
+argument to pass the table name.
+}
+\details{
+The function open and closes its own database connection. You do not
+need to close the database connection afterwards.
+
+This function uses \code{DBI::dbAppendTable()} to add data to the database.
+}
+\examples{
+\dontrun{
+psql_add_data(outing, "creel")
+psql_add_data(outing_new, "creel", "outing")
+}
 }
