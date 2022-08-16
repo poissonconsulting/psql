@@ -2,3 +2,4 @@
 
 export(psql_add_data)
 export(psql_createdb)
+export(psql_execute_db)
