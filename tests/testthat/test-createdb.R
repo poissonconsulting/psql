@@ -1,9 +1,9 @@
-# run DROP DATABASE dbname;
-
 test_that("creates new database", {
   skip_on_ci()
-  skip("skip msg")
   expect_true(psql_createdb("newdb"))
+  # clean up afterwards
+  result <- DBI::dbSendQuery(psql_connect(), "DROP DATABASE newdb;")
+  DBI::dbClearResult(result)
 })
 
 test_that("errors when no dbname passed", {
