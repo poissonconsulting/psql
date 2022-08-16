@@ -25,6 +25,13 @@ test_that("create table", {
   expect_true("input" %in% query$tablename)
 })
 
+test_that("error when function empty", {
+  expect_error(
+    psql_execute_db(),
+    regexp = 'argument "sql" is missing, with no default'
+  )
+})
+
 # clean up
 psql_execute_db(
   "DROP TABLE boat_count.input"
