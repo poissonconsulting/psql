@@ -1,14 +1,27 @@
-#' Title
+#' Add data to database
+#'
+#' Add data with a data frame to your PostgreSQL database. The data frame name
+#' must match the table name in your database, if not use the `tbl_name`
+#' argument to pass the table name.
 #'
 #' @inheritParams params
-#' @param tbl A dataframe that
-#' @param tbl_name A dataframe that
-#' @param schema A dataframe that
+#' @param tbl The data frame to add to the database.
+#' @param tbl_name A string indicating the name of the table. Default is to use
+#'  the name of the `tbl` argument.
+#' @param schema A string of the schema name. Default value is `"public"`.
 #'
 #' @return
 #' @export
+#' @details The function open and closes its own database connection. You do not
+#' need to close the database connection afterwards.
+#'
+#' This function uses `DBI::dbAppendTable()` to add data to the database.
 #'
 #' @examples
+#' \dontrun{
+#' psql_add_data(outing, "creel")
+#' psql_add_data(outing_new, "creel", "outing")
+#' }
 psql_add_data <- function(
     tbl,
     schema = "public",
