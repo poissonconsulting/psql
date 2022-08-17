@@ -46,7 +46,7 @@ The [postgresql website](https://www.postgresql.org/docs/current/libpq-pgpass.ht
 
 ## Usage
 
-When you need to add data use the `psql_add_data()` functions. 
+When you need to add data to a table use `psql_add_data()`. 
 
 ``` {r, eval=FALSE}
 library(psql)

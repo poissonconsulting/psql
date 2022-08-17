@@ -46,7 +46,7 @@ provides details on how to set it up.
 
 ## Usage
 
-When you need to add data use the `psql_add_data()` functions.
+When you need to add data to a table use `psql_add_data()`.
 
 ``` r
 library(psql)
