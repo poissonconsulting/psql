@@ -27,12 +27,15 @@ Save a copy of your database in a plain text format. This saves all the
 SQL code to recreate the structure and data.
 }
 \details{
-This function requires the user has postgres installed on their
-machine.
+This function requires the user has psql installed on their
+machine.Go to \href{https://www.postgresql.org/download/}{postgres} for download
+instructions.
 
 Password protected databases require an extra step. A
 \href{https://www.postgresql.org/docs/current/libpq-pgpass.html}{.pgpass} file
 needs to be created so you the password can be passed to the function.
+The function will check if you have a password present in your config file
+it will require you to have a .pgpass file in your home directory.
 }
 \examples{
 \dontrun{

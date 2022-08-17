@@ -12,8 +12,7 @@ psql_read_table(
 )
 }
 \arguments{
-\item{tbl_name}{A string indicating the name of the table. Default is to use
-the name of the \code{tbl} argument.}
+\item{tbl_name}{A string indicating the name of the table.}
 
 \item{schema}{A string of the schema name. Default value is \code{"public"}.}
 

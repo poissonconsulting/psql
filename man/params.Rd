@@ -10,8 +10,7 @@ The default value grabs the file path from the psql.config_path option.}
 \item{config_value}{A string of the name of value. The default value grabs the value
 from the psql.value option.}
 
-\item{tbl_name}{A string indicating the name of the table. Default is to use
-the name of the \code{tbl} argument.}
+\item{tbl_name}{A string indicating the name of the table.}
 
 \item{schema}{A string of the schema name. Default value is \code{"public"}.}
 }
