@@ -94,3 +94,11 @@ By contributing to this project, you agree to abide by its terms.
 ## Inspiration
 
 -   [readwritesql](https://github.com/poissonconsulting/readwritesqlite)
+
+## Testing
+
+In your local server you need to have a database called mydb for the
+tests to work.
+
+You also need the hosted test database credentials in your .Renviron
+file.
