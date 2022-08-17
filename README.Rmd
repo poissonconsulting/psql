@@ -44,7 +44,7 @@ default:
 A .pgpass file is required (if your database has a password) when using the `psql_backup()` function. 
 The [postgresql website](https://www.postgresql.org/docs/current/libpq-pgpass.html) provides details on how to set it up.
 
-## Examples
+## Usage
 
 When you need to add data use the `psql_add_data()` functions. 
 

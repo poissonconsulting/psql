@@ -44,7 +44,7 @@ the `psql_backup()` function. The [postgresql
 website](https://www.postgresql.org/docs/current/libpq-pgpass.html)
 provides details on how to set it up.
 
-## Examples
+## Usage
 
 When you need to add data use the `psql_add_data()` functions.
 
@@ -90,3 +90,7 @@ Please note that the psql project is released with a [Contributor Code
 of
 Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+## Inspiration
+
+-   [readwritesql](https://github.com/poissonconsulting/readwritesqlite)
