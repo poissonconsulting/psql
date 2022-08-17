@@ -25,9 +25,21 @@ test_that("add data to database", {
   psql_execute_db(
     "DROP TABLE boat_count.dat"
   )
-
   psql_execute_db(
     "DROP SCHEMA boat_count"
   )
 })
 
+# backup clean up
+try(
+  psql_execute_db(
+    "DROP TABLE boat_count.dat"
+  ),
+  silent = TRUE
+)
+try(
+  psql_execute_db(
+    "DROP SCHEMA boat_count"
+  ),
+  silent = TRUE
+)

@@ -39,3 +39,20 @@ test_that("error when no arguments supplied", {
     regexp = 'argument "tbl_name" is missing, with no default'
   )
 })
+
+
+# backup clean up
+try(
+  psql_execute_db(
+    "DROP TABLE boat_count.dat",
+    config_path = config_path
+  ),
+  silent = TRUE
+)
+try(
+  psql_execute_db(
+    "DROP SCHEMA boat_count",
+    config_path = config_path
+  ),
+  silent = TRUE
+)

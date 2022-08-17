@@ -37,7 +37,31 @@ test_that("list local tables", {
 })
 
 test_that("default params - should be empty so no names returned", {
+  skip_on_ci()
   output <- psql_list_tables()
   expect_equal(length(output), 0L)
   expect_type(output, "character")
 })
+
+# backup clean up
+try(
+  psql_execute_db(
+    "DROP TABLE boat_count.input",
+    config_path = config_path
+  ),
+  silent = TRUE
+)
+try(
+  psql_execute_db(
+    "DROP TABLE boat_count.counts",
+    config_path = config_path
+  ),
+  silent = TRUE
+)
+try(
+  psql_execute_db(
+    "DROP SCHEMA boat_count",
+    config_path = config_path
+  ),
+  silent = TRUE
+)
