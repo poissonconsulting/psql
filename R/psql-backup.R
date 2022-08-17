@@ -44,3 +44,10 @@ psql_backup <- function(
   system(cmd)
   TRUE
 }
+
+### How do I do a require statement for external software
+### Don't think require() does what I need here
+
+### Not sure if/how I can pass a password through System
+### the .pgpass file takes care of that but would be nice for the alternative to
+### work. Otherwise you'll just have password flashing with no way to pass it
