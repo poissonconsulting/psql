@@ -23,7 +23,7 @@ from the psql.value option.}
 Returns TRUE
 }
 \description{
-Create PostgreSQL database
+Create a new PostgeSQL database.
 }
 \details{
 The function open and closes its own database connection. You do not
