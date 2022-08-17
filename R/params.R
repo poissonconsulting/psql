@@ -1,6 +1,6 @@
-#' Parameters for readwriteaws functions
+#' Parameters for psql functions
 #'
-#' Descriptions of the parameters for readwriteaws functions
+#' Descriptions of the parameters for psql functions
 #'
 #' @keywords internal
 #' @name params

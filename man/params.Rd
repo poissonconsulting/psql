@@ -2,7 +2,7 @@
 % Please edit documentation in R/params.R
 \name{params}
 \alias{params}
-\title{Parameters for readwriteaws functions}
+\title{Parameters for psql functions}
 \arguments{
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
@@ -15,6 +15,6 @@ the value from the psql.value option.}
 \item{schema}{A string of the schema name. Default value is \code{"public"}.}
 }
 \description{
-Descriptions of the parameters for readwriteaws functions
+Descriptions of the parameters for psql functions
 }
 \keyword{internal}
