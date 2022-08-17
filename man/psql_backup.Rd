@@ -16,15 +16,15 @@ psql_backup(
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
 
-\item{config_value}{A string of the name of value. The default value grabs the value
-from the psql.value option.}
+\item{config_value}{A string of the name of value. The default value grabs
+the value from the psql.value option.}
 }
 \value{
 Returns TRUE
 }
 \description{
-Save a copy of your database in a plain text format. This saves all the
-SQL code to recreate the structure and data.
+Save a copy of your database in a plain text format. This saves all the SQL
+code to recreate the structure and data.
 }
 \details{
 This function requires the user has psql installed on their
@@ -33,9 +33,9 @@ instructions.
 
 Password protected databases require an extra step. A
 \href{https://www.postgresql.org/docs/current/libpq-pgpass.html}{.pgpass} file
-needs to be created so you the password can be passed to the function.
-The function will check if you have a password present in your config file
-it will require you to have a .pgpass file in your home directory.
+needs to be created so you the password can be passed to the function. The
+function will check if you have a password present in your config file it
+will require you to have a .pgpass file in your home directory.
 }
 \examples{
 \dontrun{

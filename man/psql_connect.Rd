@@ -13,8 +13,8 @@ psql_connect(
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
 
-\item{config_value}{A string of the name of value. The default value grabs the value
-from the psql.value option.}
+\item{config_value}{A string of the name of value. The default value grabs
+the value from the psql.value option.}
 }
 \value{
 returns an S4 object that inherits from DBIConnection.
@@ -24,17 +24,16 @@ Connect to a database, either supply connection details though a config file
 or connect to local default database.
 }
 \details{
-The yml file can contain connection details for: host, port,
-dbname, user and password. The host, database name, user name and password
-should be passed as string. The port is passed as an integer.
-The function uses \code{config::get()} to read the config file, check there for
-more information on reading in the config data.
+The yml file can contain connection details for: host, port, dbname,
+user and password. The host, database name, user name and password should
+be passed as string. The port is passed as an integer. The function uses
+\code{config::get()} to read the config file, check there for more information
+on reading in the config data.
 
 If no config details are passed it will connect to your local cluster.
 
-Set the values for \code{psql.config_path} and \code{psql.value} for the function
-to grab config details.
-The values can be set \code{options()}.
+Set the values for \code{psql.config_path} and \code{psql.value} for the function to
+grab config details. The values can be set \code{options()}.
 }
 \examples{
 \dontrun{
@@ -47,5 +46,4 @@ DBI::dbDisconnect(conn)
 psql_connect(config_path = "config.yml", config_value = "database")
 DBI::dbDisconnect(conn)
 }
-
 }

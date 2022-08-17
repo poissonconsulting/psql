@@ -8,8 +8,8 @@
 #' @return A scalar numeric of the number of rows affected by the statement.
 #' @export
 #' @details The function open and closes its own database connection. You do not
-#' need to close the database connection afterwards.
-#' This function is a wrapper on `DBI::dbExecute().`
+#'   need to close the database connection afterwards. This function is a
+#'   wrapper on `DBI::dbExecute().`
 #'
 #' @examples
 #' \dontrun{

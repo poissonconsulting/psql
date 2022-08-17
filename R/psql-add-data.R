@@ -7,14 +7,14 @@
 #' @inheritParams params
 #' @param tbl The data frame to add to the database.
 #' @param tbl_name A string indicating the name of the table. Default is to use
-#'  the name of the `tbl` argument.
+#'   the name of the `tbl` argument.
 #'
 #' @return returns a scalar numeric.
 #' @export
 #' @details The function open and closes its own database connection. You do not
-#' need to close the database connection afterwards.
+#'   need to close the database connection afterwards.
 #'
-#' This function uses `DBI::dbAppendTable()` to add data to the database.
+#'   This function uses `DBI::dbAppendTable()` to add data to the database.
 #'
 #' @examples
 #' \dontrun{

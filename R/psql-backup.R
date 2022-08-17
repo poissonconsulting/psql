@@ -1,7 +1,7 @@
 #' Save PostgreSQL backup
 #'
-#' Save a copy of your database in a plain text format. This saves all the
-#' SQL code to recreate the structure and data.
+#' Save a copy of your database in a plain text format. This saves all the SQL
+#' code to recreate the structure and data.
 #'
 #' @inheritParams params
 #' @param path A string of the file path to save the dumped database
@@ -9,14 +9,14 @@
 #' @return Returns TRUE
 #' @export
 #' @details This function requires the user has psql installed on their
-#' machine.Go to [postgres](https://www.postgresql.org/download/) for download
-#' instructions.
+#'   machine.Go to [postgres](https://www.postgresql.org/download/) for download
+#'   instructions.
 #'
-#' Password protected databases require an extra step. A
-#' [.pgpass](https://www.postgresql.org/docs/current/libpq-pgpass.html) file
-#' needs to be created so you the password can be passed to the function.
-#' The function will check if you have a password present in your config file
-#' it will require you to have a .pgpass file in your home directory.
+#'   Password protected databases require an extra step. A
+#'   [.pgpass](https://www.postgresql.org/docs/current/libpq-pgpass.html) file
+#'   needs to be created so you the password can be passed to the function. The
+#'   function will check if you have a password present in your config file it
+#'   will require you to have a .pgpass file in your home directory.
 #'
 #' @examples
 #' \dontrun{

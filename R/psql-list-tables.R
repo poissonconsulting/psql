@@ -7,7 +7,7 @@
 #' @return A vector of table names
 #' @export
 #' @details The function open and closes its own database connection. You do not
-#' need to close the database connection afterwards.
+#'   need to close the database connection afterwards.
 #'
 #' @examples
 #' \dontrun{

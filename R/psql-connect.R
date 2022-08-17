@@ -1,22 +1,21 @@
 #' Connect to PostgreSQL database
 #'
 #' Connect to a database, either supply connection details though a config file
-#'  or connect to local default database.
+#' or connect to local default database.
 #'
 #' @inheritParams params
 #'
 #' @return returns an S4 object that inherits from DBIConnection.
-#' @details The yml file can contain connection details for: host, port,
-#'  dbname, user and password. The host, database name, user name and password
-#'  should be passed as string. The port is passed as an integer.
-#'  The function uses `config::get()` to read the config file, check there for
-#'  more information on reading in the config data.
+#' @details The yml file can contain connection details for: host, port, dbname,
+#'   user and password. The host, database name, user name and password should
+#'   be passed as string. The port is passed as an integer. The function uses
+#'   `config::get()` to read the config file, check there for more information
+#'   on reading in the config data.
 #'
-#'  If no config details are passed it will connect to your local cluster.
+#'   If no config details are passed it will connect to your local cluster.
 #'
-#'  Set the values for `psql.config_path` and `psql.value` for the function
-#'   to grab config details.
-#'   The values can be set `options()`.
+#'   Set the values for `psql.config_path` and `psql.value` for the function to
+#'   grab config details. The values can be set `options()`.
 #'
 #' @examples
 #' \dontrun{
@@ -29,7 +28,6 @@
 #' psql_connect(config_path = "config.yml", config_value = "database")
 #' DBI::dbDisconnect(conn)
 #' }
-#'
 psql_connect <- function(
     config_path = getOption("psql.config_path", NULL),
     config_value = getOption("psql.value", NULL)

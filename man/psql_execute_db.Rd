@@ -16,8 +16,8 @@ psql_execute_db(
 \item{config_path}{A string of a file path to the yaml configuration file.
 The default value grabs the file path from the psql.config_path option.}
 
-\item{config_value}{A string of the name of value. The default value grabs the value
-from the psql.value option.}
+\item{config_value}{A string of the name of value. The default value grabs
+the value from the psql.value option.}
 }
 \value{
 A scalar numeric of the number of rows affected by the statement.
@@ -27,8 +27,8 @@ Execute PostgreSQL statements.
 }
 \details{
 The function open and closes its own database connection. You do not
-need to close the database connection afterwards.
-This function is a wrapper on \verb{DBI::dbExecute().}
+need to close the database connection afterwards. This function is a
+wrapper on \verb{DBI::dbExecute().}
 }
 \examples{
 \dontrun{
