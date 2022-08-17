@@ -31,7 +31,7 @@ psql_backup <- function(
 
   # ensure user has psql on thier system before proceeding
   software_test <- try(system2("psql", "--version", stdout = TRUE))
-  if (class(software_test) == "try-error") {
+  if (inherits(software_test, "try-error")) {
     stop(
       "you must have `psql` downloaded before proceeding.
       Go to https://www.postgresql.org/download/ for instructions."
