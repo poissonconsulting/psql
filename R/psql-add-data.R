@@ -8,7 +8,6 @@
 #' @param tbl The data frame to add to the database.
 #' @param tbl_name A string indicating the name of the table. Default is to use
 #'  the name of the `tbl` argument.
-#' @param schema A string of the schema name. Default value is `"public"`.
 #'
 #' @return returns a scalar numeric.
 #' @export
