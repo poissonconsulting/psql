@@ -26,6 +26,14 @@ Returns TRUE
 Save a copy of your database in a plain text format. This saves all the
 SQL code to recreate the structure and data.
 }
+\details{
+This function requires the user has postgres installed on their
+machine.
+
+Password protected databases require an extra step. A
+\href{https://www.postgresql.org/docs/current/libpq-pgpass.html}{.pgpass} file
+needs to be created so you the password can be passed to the function.
+}
 \examples{
 \dontrun{
 psql_backup("/Users/user1/Dumps/dump_db.sql")

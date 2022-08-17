@@ -8,6 +8,13 @@
 #'
 #' @return Returns TRUE
 #' @export
+#' @details This function requires the user has postgres installed on their
+#' machine.
+#'
+#' Password protected databases require an extra step. A
+#' [.pgpass](https://www.postgresql.org/docs/current/libpq-pgpass.html) file
+#' needs to be created so you the password can be passed to the function.
+#'
 #'
 #' @examples
 #' \dontrun{
