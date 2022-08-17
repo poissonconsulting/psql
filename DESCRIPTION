@@ -7,17 +7,17 @@ Authors@R:
 Description: A package designed to streamline interacting with PostgreSQL 
   databases. You can easily connect, create databases, add and access your data, 
   load tables as R objects. This allows users who are not familar with 
-  PostgreSQL to easily pull and update their data that is stored in a PostgreSQL 
+  PostgreSQL to easily pull and update their data stored in a PostgreSQL 
   database.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-Suggests: 
-    testthat (>= 3.0.0)
-Config/testthat/edition: 3
 Imports: 
     chk,
     config,
     DBI,
     RPostgres
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
