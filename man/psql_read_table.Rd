@@ -29,8 +29,13 @@ A data frame
 \description{
 Read a table from a PostgreSQL database as a data frame.
 }
+\details{
+The function open and closes its own database connection. You do not
+need to close the database connection afterwards.
+}
 \examples{
 \dontrun{
 psql_read_table("capture")
+psql_read_table("counts", "boat_count")
 }
 }

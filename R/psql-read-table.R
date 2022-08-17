@@ -6,10 +6,13 @@
 #'
 #' @return A data frame
 #' @export
+#' @details The function open and closes its own database connection. You do not
+#' need to close the database connection afterwards.
 #'
 #' @examples
 #' \dontrun{
 #' psql_read_table("capture")
+#' psql_read_table("counts", "boat_count")
 #' }
 psql_read_table <- function(
     tbl_name,
