@@ -16,6 +16,24 @@ require manual writing.
 devtools::install_github("poissonconsulting/psql")
 ```
 
+## Set Up
+
+Your database connection details should be stored in a config.yml file.
+Set the `psql.config_path` option as the file path to the config file.
+Set the `psql.value` option as the value in the config file.
+
+Example of a config.yml file:
+
+    default:
+      user: "postgres"
+      host: 127.0.0.1
+      dbname: "postgres"
+      port: 5432
+      password: !expr Sys.getenv("DM_PASSWORD")
+
+This is needed when using the `psql_backup()` function. Set up a .pgpass
+file to also contain the password for the database.
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
