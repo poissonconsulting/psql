@@ -20,7 +20,6 @@ test_that("list local tables", {
     "boat_count",
     config_path = config_path
   )
-
   expect_equal(output, c("input", "counts"))
   # clean up
   psql_execute_db(
@@ -35,4 +34,10 @@ test_that("list local tables", {
     "DROP SCHEMA boat_count",
     config_path = config_path
   )
+})
+
+test_that("default params - should be empty so no names returned", {
+  output <- psql_list_tables()
+  expect_equal(length(output), 0L)
+  expect_type(output, "character")
 })
