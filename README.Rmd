@@ -24,6 +24,12 @@ devtools::install_github("poissonconsulting/psql")
 
 ## Set Up
 
+### Install postgres locally by running the following 
+
+```
+brew install postgresql
+```
+
 ### config file
 
 Your database connection details should be stored in a config.yml file. 
@@ -43,8 +49,14 @@ default:
 
 ### pgpass file
 
-A .pgpass file is required (if your database has a password) when using the `psql_backup()` function. 
+A `.pgpass` file is required (if your database has a password) when using the `psql_backup()` function. 
 The [postgresql website](https://www.postgresql.org/docs/current/libpq-pgpass.html) provides details on how to set it up.
+
+Currently add the following file named `.pgpass` to `~`
+```
+*:*:*:*:<password>
+```
+and then in the terminal run `chmod 0600 ~/.pgpass`
 
 ## Usage
 
