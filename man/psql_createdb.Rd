@@ -20,7 +20,7 @@ The default value grabs the file path from the psql.config_path option.}
 the value from the psql.value option.}
 }
 \value{
-Returns TRUE
+TRUE
 }
 \description{
 Create a new PostgreSQL database.

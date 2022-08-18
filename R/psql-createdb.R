@@ -5,7 +5,7 @@
 #' @inheritParams params
 #' @param dbname A string of the name of the new database to create.
 #'
-#' @return Returns TRUE
+#' @return TRUE
 #' @export
 #' @details The function open and closes its own database connection. You do not
 #'   need to close the database connection afterwards.

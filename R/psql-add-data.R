@@ -9,7 +9,7 @@
 #' @param tbl_name A string indicating the name of the table. Default is to use
 #'   the name of the `tbl` argument.
 #'
-#' @return returns a scalar numeric.
+#' @return A scalar numeric.
 #' @export
 #' @details The function open and closes its own database connection. You do not
 #'   need to close the database connection afterwards.

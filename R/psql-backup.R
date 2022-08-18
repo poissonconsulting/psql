@@ -6,7 +6,7 @@
 #' @inheritParams params
 #' @param path A string of the file path to save the dumped database
 #'
-#' @return Returns TRUE
+#' @return TRUE
 #' @export
 #' @details This function requires the user has psql installed on their
 #'   machine.Go to [postgres](https://www.postgresql.org/download/) for download

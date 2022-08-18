@@ -31,9 +31,9 @@ need to close the database connection afterwards.
 }
 \examples{
 \dontrun{
- psql_list_tables(
- "boat_count"
- )
- psql_list_tables()
+psql_list_tables(
+  "boat_count"
+)
+psql_list_tables()
 }
 }

@@ -17,7 +17,7 @@ The default value grabs the file path from the psql.config_path option.}
 the value from the psql.value option.}
 }
 \value{
-returns an S4 object that inherits from DBIConnection.
+An S4 object that inherits from DBIConnection.
 }
 \description{
 Connect to a database, either supply connection details though a config file

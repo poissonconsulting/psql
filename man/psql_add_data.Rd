@@ -27,7 +27,7 @@ The default value grabs the file path from the psql.config_path option.}
 the value from the psql.value option.}
 }
 \value{
-returns a scalar numeric.
+A scalar numeric.
 }
 \description{
 Add data with a data frame to your PostgreSQL database. The data frame name
