@@ -4,8 +4,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/poissonconsulting/psql/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/psql/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/psql/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/psql?branch=main)
+[![codecov](https://codecov.io/gh/poissonconsulting/psql/branch/main/graph/badge.svg?token=7F2LIBp2Tt)](https://codecov.io/gh/poissonconsulting/psql)
 <!-- badges: end -->
 
 `psql` is a wrapper on `DBI` and PostgreSQL commands thus eliminating
