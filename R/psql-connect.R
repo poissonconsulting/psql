@@ -33,7 +33,7 @@ psql_connect <- function(config_path = getOption("psql.config_path", NULL),
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
-  if (is.null(config_path) & is.null(config_value)) {
+  if (is.null(config_path) && is.null(config_value)) {
     config <- list(
       host = NULL,
       port = NULL,
