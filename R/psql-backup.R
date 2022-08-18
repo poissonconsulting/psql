@@ -6,7 +6,7 @@
 #' @inheritParams params
 #' @param path A string of the file path to save the dumped database
 #'
-#' @return TRUE
+#' @return TRUE (or errors)
 #' @export
 #' @details This function requires the user has psql installed on their
 #'   machine.Go to [postgres](https://www.postgresql.org/download/) for download
@@ -31,8 +31,9 @@ psql_backup <- function(path = "dump_db.sql",
   software_test <- try(system2("psql", "--version", stdout = TRUE))
   if (inherits(software_test, "try-error")) {
     stop(
-      "you must have `psql` downloaded before proceeding.
-      Go to https://www.postgresql.org/download/ for instructions."
+      "You must have `psql` downloaded before proceeding.
+      Go to https://www.postgresql.org/download/ for instructions.",
+      call. = FALSE
     )
   }
 
@@ -40,7 +41,8 @@ psql_backup <- function(path = "dump_db.sql",
   # ensure .pgpass file is present (except when not needed)
   if (!is.null(config$password)) {
     if (!file.exists("~/.pgpass")) {
-      stop("you must have a .pgpass file before proceeding")
+      stop("You must have a `~/.pgpass` file before proceeding.",
+           call. = FALSE)
     }
   }
 
@@ -60,8 +62,9 @@ psql_backup <- function(path = "dump_db.sql",
 
   # errors because pg_dump creates new file even when it errors out
   if (file.size(path) == 0) {
-    stop("Dumped database is zero bytes, transfer failed")
+    stop("Dumped database is zero bytes, transfer failed.",
+         call. = FALSE)
   }
 
-  TRUE
+  invisible(TRUE)
 }

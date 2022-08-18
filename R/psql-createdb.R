@@ -5,7 +5,7 @@
 #' @inheritParams params
 #' @param dbname A string of the name of the new database to create.
 #'
-#' @return TRUE
+#' @return TRUE (or errors).
 #' @export
 #' @details The function open and closes its own database connection. You do not
 #'   need to close the database connection afterwards.
@@ -26,5 +26,5 @@ psql_createdb <- function(dbname,
   cmd <- paste0("CREATE DATABASE ", dbname, ";")
   result <- DBI::dbSendQuery(conn, cmd)
   DBI::dbClearResult(result)
-  TRUE
+  invisible(TRUE)
 }
