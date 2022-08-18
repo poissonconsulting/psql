@@ -28,10 +28,8 @@
 #' psql_connect(config_path = "config.yml", config_value = "database")
 #' DBI::dbDisconnect(conn)
 #' }
-psql_connect <- function(
-    config_path = getOption("psql.config_path", NULL),
-    config_value = getOption("psql.value", NULL)
-  ) {
+psql_connect <- function(config_path = getOption("psql.config_path", NULL),
+                         config_value = getOption("psql.value", NULL)) {
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
@@ -46,7 +44,7 @@ psql_connect <- function(
   } else {
     config <- config::get(value = config_value, file = config_path)
   }
-  conn <-  DBI::dbConnect(
+  conn <- DBI::dbConnect(
     RPostgres::Postgres(),
     host = config$host,
     port = config$port,

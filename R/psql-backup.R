@@ -22,11 +22,9 @@
 #' \dontrun{
 #' psql_backup("/Users/user1/Dumps/dump_db.sql")
 #' }
-psql_backup <- function(
-    path = "dump_db.sql",
-    config_path = getOption("psql.config_path", NULL),
-    config_value = getOption("psql.value", NULL)
-  ) {
+psql_backup <- function(path = "dump_db.sql",
+                        config_path = getOption("psql.config_path", NULL),
+                        config_value = getOption("psql.value", NULL)) {
   chk::chk_string(path)
 
   # ensure user has psql on thier system before proceeding

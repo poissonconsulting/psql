@@ -11,22 +11,20 @@
 #'
 #' @examples
 #' \dontrun{
-#'  psql_list_tables(
-#'  "boat_count"
-#'  )
-#'  psql_list_tables()
+#' psql_list_tables(
+#'   "boat_count"
+#' )
+#' psql_list_tables()
 #' }
-psql_list_tables <- function(
-    schema = "public",
-    config_path = getOption("psql.config_path", NULL),
-    config_value = getOption("psql.value", NULL)
-  ) {
+psql_list_tables <- function(schema = "public",
+                             config_path = getOption("psql.config_path", NULL),
+                             config_value = getOption("psql.value", NULL)) {
   chk::chk_string(schema)
 
   conn <- psql_connect(config_path, config_value)
   on.exit(DBI::dbDisconnect(conn))
 
-  cmd <- paste0("SELECT * FROM pg_tables WHERE schemaname = '" , schema, "'")
+  cmd <- paste0("SELECT * FROM pg_tables WHERE schemaname = '", schema, "'")
 
   query <- DBI::dbGetQuery(conn, cmd)
   query[["tablename"]]

@@ -4,7 +4,7 @@ test_that("hosted dump works", {
   psql_backup(
     path = "~/Dumps/dump_db1.sql",
     config_path = config_path
-    )
+  )
   expect_true(file.exists("~/Dumps/dump_db1.sql"))
   unlink("~/Dumps/dump_db1.sql")
 })

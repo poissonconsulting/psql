@@ -84,10 +84,10 @@ To create a schema and table use `psql_execute_db()`
 ``` {r, eval=FALSE}
 psql_execute_db("CREATE SCHEMA cars")
 psql_execute_db(
-    "CREATE TABLE cars.model (
+  "CREATE TABLE cars.model (
      name TEXT NOT NULL,
      code INTEGER)"
-  )
+)
 ```
 
 ## Contribution
