@@ -44,7 +44,7 @@ test_that("list local tables", {
     "boat_count",
     config_path = config_path
   )
-  expect_equal(output, c("input", "counts"))
+  expect_equal(sort(output), sort(c("input", "counts")))
 })
 
 test_that("default params - should be empty so no names returned", {
