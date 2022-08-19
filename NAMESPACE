@@ -2,7 +2,7 @@
 
 export(psql_add_data)
 export(psql_backup)
-export(psql_createdb)
+export(psql_create_db)
 export(psql_execute_db)
 export(psql_list_tables)
 export(psql_read_table)
