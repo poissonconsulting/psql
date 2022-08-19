@@ -82,7 +82,6 @@ psql_execute_db(
 withr::defer({
   psql_execute_db("DROP TABLE truck.model")
   psql_execute_db("DROP SCHEMA truck")
-
 })
 ```
 

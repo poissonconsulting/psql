@@ -2,19 +2,17 @@ test_that("creates new database", {
   skip_on_ci()
   output <- psql_create_db("newdb")
   # clean up afterwards
-  withr::defer(
-    {
-      try(
-        result <- DBI::dbSendQuery(psql_connect(), "DROP DATABASE newdb;"),
-        silent = TRUE
-      )
-      try(
-        DBI::dbClearResult(result),
-        silent = TRUE
-      )
-    }
-  )
-  #test
+  withr::defer({
+    try(
+      result <- DBI::dbSendQuery(psql_connect(), "DROP DATABASE newdb;"),
+      silent = TRUE
+    )
+    try(
+      DBI::dbClearResult(result),
+      silent = TRUE
+    )
+  })
+  # test
   expect_true(output)
 })
 

@@ -16,8 +16,8 @@
 #' psql_create_db("new_database", config_path = "keys/config.yml")
 #' }
 psql_create_db <- function(dbname,
-                          config_path = getOption("psql.config_path", NULL),
-                          config_value = getOption("psql.value", NULL)) {
+                           config_path = getOption("psql.config_path", NULL),
+                           config_value = getOption("psql.value", NULL)) {
   chk::chk_string(dbname)
 
   conn <- psql_connect(config_path, config_value)
