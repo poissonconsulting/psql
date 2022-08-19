@@ -24,7 +24,11 @@ psql_list_tables <- function(schema = "public",
   conn <- psql_connect(config_path, config_value)
   on.exit(DBI::dbDisconnect(conn))
 
-  cmd <- DBI::sqlInterpolate(conn, "SELECT * FROM pg_tables WHERE schemaname = ?schema", schema = schema)
+  cmd <- DBI::sqlInterpolate(
+    conn,
+    "SELECT * FROM pg_tables WHERE schemaname = ?schema",
+    schema = schema
+  )
 
   query <- DBI::dbGetQuery(conn, cmd)
   query[["tablename"]]
