@@ -1,6 +1,14 @@
 test_that("create schema", {
   skip_on_ci()
   output <- psql_execute_db("CREATE SCHEMA boat_count")
+  withr::defer({
+    try(
+      psql_execute_db(
+        "DROP SCHEMA boat_count"
+      ),
+      silent = TRUE
+    )
+  })
   query <- DBI::dbGetQuery(
     psql_connect(),
     "SELECT schema_name FROM information_schema.schemata"
@@ -11,11 +19,28 @@ test_that("create schema", {
 
 test_that("create table", {
   skip_on_ci()
+  psql_execute_db("CREATE SCHEMA boat_count")
   output <- psql_execute_db(
     "CREATE TABLE boat_count.input (
      x INTEGER NOT NULL,
      y INTEGER)"
   )
+  withr::defer({
+    try(
+      psql_execute_db(
+        "DROP SCHEMA boat_count"
+      ),
+      silent = TRUE
+    )
+  })
+  withr::defer({
+    try(
+      psql_execute_db(
+        "DROP TABLE boat_count.input"
+      ),
+      silent = TRUE
+    )
+  })
   query <- DBI::dbGetQuery(
     psql_connect(),
     "SELECT * FROM pg_tables
@@ -31,17 +56,3 @@ test_that("error when function empty", {
     regexp = 'argument "sql" is missing, with no default'
   )
 })
-
-# clean up
-try(
-  psql_execute_db(
-    "DROP TABLE boat_count.input"
-  ),
-  silent = TRUE
-)
-try(
-  psql_execute_db(
-    "DROP SCHEMA boat_count"
-  ),
-  silent = TRUE
-)

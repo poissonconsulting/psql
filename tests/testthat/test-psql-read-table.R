@@ -7,11 +7,27 @@ test_that("read table from local", {
   )
   config_path <- system.file("testhelpers/config.yml", package = "psql")
   psql_execute_db("CREATE SCHEMA boat_count", config_path = config_path)
+  withr::defer(
+    try(
+      psql_execute_db(
+        "DROP SCHEMA boat_count",
+        config_path = config_path
+      )
+    )
+  )
   psql_execute_db(
     "CREATE TABLE boat_count.dat (
      x INTEGER NOT NULL,
      y TEXT)",
     config_path = config_path
+  )
+  withr::defer(
+    try(
+      psql_execute_db(
+        "DROP TABLE boat_count.dat",
+        config_path = config_path
+      )
+    )
   )
   psql_add_data(dat, schema = "boat_count", config_path = config_path)
   # execute tests
@@ -22,15 +38,6 @@ test_that("read table from local", {
   )
   expect_equal(output, dat)
   expect_s3_class(output, "data.frame")
-  # clean up
-  psql_execute_db(
-    "DROP TABLE boat_count.dat",
-    config_path = config_path
-  )
-  psql_execute_db(
-    "DROP SCHEMA boat_count",
-    config_path = config_path
-  )
 })
 
 test_that("error when no arguments supplied", {
@@ -39,20 +46,3 @@ test_that("error when no arguments supplied", {
     regexp = 'argument "tbl_name" is missing, with no default'
   )
 })
-
-
-# backup clean up
-try(
-  psql_execute_db(
-    "DROP TABLE boat_count.dat",
-    config_path = config_path
-  ),
-  silent = TRUE
-)
-try(
-  psql_execute_db(
-    "DROP SCHEMA boat_count",
-    config_path = config_path
-  ),
-  silent = TRUE
-)
