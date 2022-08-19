@@ -14,12 +14,10 @@
 #' psql_read_table("capture")
 #' psql_read_table("counts", "boat_count")
 #' }
-psql_read_table <- function(
-    tbl_name,
-    schema = "public",
-    config_path = getOption("psql.config_path", NULL),
-    config_value = getOption("psql.value", NULL)
-  ) {
+psql_read_table <- function(tbl_name,
+                            schema = "public",
+                            config_path = getOption("psql.config_path", NULL),
+                            config_value = getOption("psql.value", NULL)) {
   chk::chk_string(tbl_name)
   chk::chk_string(schema)
 

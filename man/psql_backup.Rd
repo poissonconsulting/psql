@@ -20,7 +20,7 @@ The default value grabs the file path from the psql.config_path option.}
 the value from the psql.value option.}
 }
 \value{
-Returns TRUE
+TRUE (or errors)
 }
 \description{
 Save a copy of your database in a plain text format. This saves all the SQL

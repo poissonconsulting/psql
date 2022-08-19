@@ -20,7 +20,7 @@ test_that("working local connection of a different db from config", {
   expect_s4_class(conn, "PqConnection")
 })
 
-test_that("working local connection of a different db from config other value", {
+test_that("working local connection of different db from config other value", {
   skip_on_ci()
   path <- system.file("testhelpers/config-value.yml", package = "psql")
   conn <- psql_connect(config_path = path, config_value = "database")

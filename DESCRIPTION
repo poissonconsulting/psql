@@ -4,15 +4,12 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Ayla", "Pearson", , "ayla@poissonconsulting.ca", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-7388-1222"))
-Description: A package designed to streamline interacting with PostgreSQL 
-  databases. You can easily connect, create databases, add and access your data, 
-  load tables as R objects. This allows users who are not familar with 
-  PostgreSQL to easily pull and update their data stored in a PostgreSQL 
-  database.
+Description: Streamlines interacting with PostgreSQL
+    databases. You can easily connect, create databases, add and access
+    your data, load tables as R objects. This allows users who are not
+    familar with PostgreSQL to easily pull and update their data stored in
+    a PostgreSQL database.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
 Imports: 
     chk,
     config,
@@ -22,3 +19,6 @@ Suggests:
     covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1

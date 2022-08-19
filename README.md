@@ -4,8 +4,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/poissonconsulting/psql/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/poissonconsulting/psql/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/poissonconsulting/psql/branch/main/graph/badge.svg)](https://app.codecov.io/gh/poissonconsulting/psql?branch=main)
+[![codecov](https://codecov.io/gh/poissonconsulting/psql/branch/main/graph/badge.svg?token=7F2LIBp2Tt)](https://codecov.io/gh/poissonconsulting/psql)
 <!-- badges: end -->
 
 `psql` is a wrapper on `DBI` and PostgreSQL commands thus eliminating
@@ -26,6 +25,10 @@ devtools::install_github("poissonconsulting/psql")
 
 ## Set Up
 
+### Install postgres locally by running the following
+
+    brew install postgresql
+
 ### config file
 
 Your database connection details should be stored in a config.yml file.
@@ -43,10 +46,16 @@ Example of a config.yml file:
 
 ### pgpass file
 
-A .pgpass file is required (if your database has a password) when using
-the `psql_backup()` function. The [postgresql
+A `.pgpass` file is required (if your database has a password) when
+using the `psql_backup()` function. The [postgresql
 website](https://www.postgresql.org/docs/current/libpq-pgpass.html)
 provides details on how to set it up.
+
+Currently add the following file named `.pgpass` to `~`
+
+    *:*:*:*:<password>
+
+and then in the terminal run `chmod 0600 ~/.pgpass`
 
 ## Usage
 
@@ -74,10 +83,10 @@ To create a schema and table use `psql_execute_db()`
 ``` r
 psql_execute_db("CREATE SCHEMA cars")
 psql_execute_db(
-    "CREATE TABLE cars.model (
+  "CREATE TABLE cars.model (
      name TEXT NOT NULL,
      code INTEGER)"
-  )
+)
 ```
 
 ## Contribution

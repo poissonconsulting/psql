@@ -9,7 +9,7 @@
 #' @param tbl_name A string indicating the name of the table. Default is to use
 #'   the name of the `tbl` argument.
 #'
-#' @return returns a scalar numeric.
+#' @return A scalar numeric.
 #' @export
 #' @details The function open and closes its own database connection. You do not
 #'   need to close the database connection afterwards.
@@ -21,13 +21,11 @@
 #' psql_add_data(outing, "creel")
 #' psql_add_data(outing_new, "creel", "outing")
 #' }
-psql_add_data <- function(
-    tbl,
-    schema = "public",
-    tbl_name = NULL,
-    config_path = getOption("psql.config_path", NULL),
-    config_value = getOption("psql.value", NULL)
-  ) {
+psql_add_data <- function(tbl,
+                          schema = "public",
+                          tbl_name = NULL,
+                          config_path = getOption("psql.config_path", NULL),
+                          config_value = getOption("psql.value", NULL)) {
   chk::chk_string(schema)
 
   if (is.null(tbl_name)) tbl_name <- deparse((substitute(tbl)))

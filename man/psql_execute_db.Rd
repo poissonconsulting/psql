@@ -33,10 +33,10 @@ wrapper on \verb{DBI::dbExecute().}
 \examples{
 \dontrun{
 psql_execute_db(
- "CREATE SCHEMA boat_count"
+  "CREATE SCHEMA boat_count"
 )
 psql_execute_db(
- "CREATE TABLE boat_count.input (
+  "CREATE TABLE boat_count.input (
   file_name TEXT NOT NULL,
   comment TEXT)"
 )

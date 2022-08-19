@@ -2,22 +2,22 @@ test_that("hosted dump works", {
   skip_on_ci()
   config_path <- system.file("testhelpers/config-hosted.yml", package = "psql")
   psql_backup(
-    path = "/Users/aylapearson/Dumps/dump_db1.sql",
+    path = "~/Dumps/dump_db1.sql",
     config_path = config_path
-    )
-  expect_true(file.exists("/Users/aylapearson/Dumps/dump_db1.sql"))
-  unlink("/Users/aylapearson/Dumps/dump_db1.sql")
+  )
+  expect_true(file.exists("~/Dumps/dump_db1.sql"))
+  unlink("~/Dumps/dump_db1.sql")
 })
 
 test_that("local dump works", {
   skip_on_ci()
   config_path <- system.file("testhelpers/config.yml", package = "psql")
   psql_backup(
-    path = "/Users/aylapearson/Dumps/dump_db2.sql",
+    path = "~/Dumps/dump_db2.sql",
     config_path = config_path
   )
-  expect_true(file.exists("/Users/aylapearson/Dumps/dump_db2.sql"))
-  unlink("/Users/aylapearson/Dumps/dump_db2.sql")
+  expect_true(file.exists("~/Dumps/dump_db2.sql"))
+  unlink("~/Dumps/dump_db2.sql")
 })
 
 test_that("default local dump works", {
