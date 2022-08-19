@@ -39,7 +39,6 @@ test_that("list local tables", {
       )
     )
   )
-
   # execute tests
   output <- psql_list_tables(
     "boat_count",
@@ -50,7 +49,8 @@ test_that("list local tables", {
 
 test_that("default params - should be empty so no names returned", {
   skip_on_ci()
-  output <- psql_list_tables()
+  config_path <- system.file("testhelpers/config.yml", package = "psql")
+  output <- psql_list_tables(config_path = config_path)
   expect_equal(length(output), 0L)
   expect_type(output, "character")
 })

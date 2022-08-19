@@ -1,16 +1,21 @@
 test_that("create schema", {
   skip_on_ci()
-  output <- psql_execute_db("CREATE SCHEMA boat_count")
+  config_path <- system.file("testhelpers/config.yml", package = "psql")
+  output <- psql_execute_db(
+    "CREATE SCHEMA boat_count",
+    config_path = config_path
+  )
   withr::defer({
     try(
       psql_execute_db(
-        "DROP SCHEMA boat_count"
+        "DROP SCHEMA boat_count",
+        config_path = config_path
       ),
       silent = TRUE
     )
   })
   query <- DBI::dbGetQuery(
-    psql_connect(),
+    psql_connect(config_path = config_path),
     "SELECT schema_name FROM information_schema.schemata"
   )
   expect_equal(output, 0L)
@@ -19,16 +24,19 @@ test_that("create schema", {
 
 test_that("create table", {
   skip_on_ci()
-  psql_execute_db("CREATE SCHEMA boat_count")
+  config_path <- system.file("testhelpers/config.yml", package = "psql")
+  psql_execute_db("CREATE SCHEMA boat_count", config_path = config_path)
   output <- psql_execute_db(
     "CREATE TABLE boat_count.input (
      x INTEGER NOT NULL,
-     y INTEGER)"
+     y INTEGER)",
+    config_path = config_path
   )
   withr::defer({
     try(
       psql_execute_db(
-        "DROP SCHEMA boat_count"
+        "DROP SCHEMA boat_count",
+        config_path = config_path
       ),
       silent = TRUE
     )
@@ -36,13 +44,14 @@ test_that("create table", {
   withr::defer({
     try(
       psql_execute_db(
-        "DROP TABLE boat_count.input"
+        "DROP TABLE boat_count.input",
+        config_path = config_path
       ),
       silent = TRUE
     )
   })
   query <- DBI::dbGetQuery(
-    psql_connect(),
+    psql_connect(config_path = config_path),
     "SELECT * FROM pg_tables
      WHERE schemaname = 'boat_count'"
   )
