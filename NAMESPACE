@@ -2,6 +2,7 @@
 
 export(psql_add_data)
 export(psql_backup)
+export(psql_connect)
 export(psql_create_db)
 export(psql_execute_db)
 export(psql_list_tables)
