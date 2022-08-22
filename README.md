@@ -59,34 +59,62 @@ and then in the terminal run `chmod 0600 ~/.pgpass`
 
 ## Usage
 
-When you need to add data to a table use `psql_add_data()`.
+Start by setting the file path for your config file in options so you do
+not have to pass the config file each time.
 
 ``` r
 library(psql)
-psql_add_data(mtcars, schema = "cars")
+options(psql.config_path = system.file("testhelpers/config.yml", package = "psql"))
+```
+
+Lets create a schema and table with `psql_execute_db()`
+
+``` r
+psql_execute_db("CREATE SCHEMA truck")
+## [1] 0
+psql_execute_db(
+  "CREATE TABLE truck.model (
+     name TEXT NOT NULL,
+     code INTEGER)"
+)
+## [1] 0
+```
+
+When you need to add data to a table use `psql_add_data()`, and the
+number of rows added will be output.
+
+``` r
+model <- data.frame(
+  name = c("Ranger", "F-150", "F-250"),
+  code = c(2457, 1475, 1247)
+)
+
+psql_add_data(model, schema = "truck")
+## [1] 3
 ```
 
 To list all the tables in the schema use `psql_list_tables()`.
 
 ``` r
-psql_list_tables(schema = "cars")
+psql_list_tables(schema = "truck")
+## [1] "model"
 ```
 
 To read a table in from your database use `psql_read_table()`
 
 ``` r
-db_mtcars <- psql_list_tables(tbl_name = "mtcars", schema = "cars")
+truck_models <- psql_read_table(tbl_name = "model", schema = "truck")
+truck_models
+##     name code
+## 1 Ranger 2457
+## 2  F-150 1475
+## 3  F-250 1247
 ```
 
-To create a schema and table use `psql_execute_db()`
+To copy and save your database use `psql_backup()`
 
 ``` r
-psql_execute_db("CREATE SCHEMA cars")
-psql_execute_db(
-  "CREATE TABLE cars.model (
-     name TEXT NOT NULL,
-     code INTEGER)"
-)
+psql_backup("~/Database_backups/db_trucks_2020-07-19.sql")
 ```
 
 ## Contribution

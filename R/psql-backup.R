@@ -42,7 +42,8 @@ psql_backup <- function(path = "dump_db.sql",
   if (!is.null(config$password)) {
     if (!file.exists("~/.pgpass")) {
       stop("You must have a `~/.pgpass` file before proceeding.",
-           call. = FALSE)
+        call. = FALSE
+      )
     }
   }
 
@@ -63,7 +64,8 @@ psql_backup <- function(path = "dump_db.sql",
   # errors because pg_dump creates new file even when it errors out
   if (file.size(path) == 0) {
     stop("Dumped database is zero bytes, transfer failed.",
-         call. = FALSE)
+      call. = FALSE
+    )
   }
 
   invisible(TRUE)

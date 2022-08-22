@@ -1,9 +1,19 @@
 test_that("creates new database", {
   skip_on_ci()
-  expect_true(psql_create_db("newdb"))
+  output <- psql_create_db("newdb")
   # clean up afterwards
-  result <- DBI::dbSendQuery(psql_connect(), "DROP DATABASE newdb;")
-  DBI::dbClearResult(result)
+  withr::defer({
+    try(
+      result <- DBI::dbSendQuery(psql_connect(), "DROP DATABASE newdb;"),
+      silent = TRUE
+    )
+    try(
+      DBI::dbClearResult(result),
+      silent = TRUE
+    )
+  })
+  # test
+  expect_true(output)
 })
 
 test_that("errors when no dbname passed", {

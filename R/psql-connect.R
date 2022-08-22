@@ -6,6 +6,7 @@
 #' @inheritParams params
 #'
 #' @return An S4 object that inherits from DBIConnection.
+#' @export
 #' @details The yml file can contain connection details for: host, port, dbname,
 #'   user and password. The host, database name, user name and password should
 #'   be passed as string. The port is passed as an integer. The function uses
