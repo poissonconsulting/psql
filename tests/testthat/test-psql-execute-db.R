@@ -65,3 +65,23 @@ test_that("error when function empty", {
     regexp = 'argument "sql" is missing, with no default'
   )
 })
+
+
+
+
+test_that("add schema to local teardown database test fixture", {
+  skip_on_ci()
+  local_config <- create_local_database()
+  clean_up_schema(local_config)
+
+  output <- psql_execute_db(
+    "CREATE SCHEMA boat_count",
+    config_path = local_config
+  )
+
+  schema_info <- check_schema_exists(local_config)
+
+  expect_equal(output, 0L)
+  expect_true("boat_count" %in% schema_info$schema_name)
+})
+
