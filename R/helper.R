@@ -70,7 +70,7 @@ create_local_database <- function(
   # outputs a config file in a temp directory for the new database it made
   config_deets <- paste0("default:\n  dbname: ", local_dbname, "\n")
   config_file_path <- withr::local_file(
-    list(file_name = "local_test_config.yml"),
+    "local_test_config.yml",
     .local_envir = env
   )
   fileConn <- file(config_file_path)
@@ -173,3 +173,6 @@ clean_up_schema <- function(config_path,
 #     value = table
 #   )
 # }
+
+
+
