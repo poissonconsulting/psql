@@ -13,13 +13,11 @@
 create_local_database <- function(
     schema = NULL,
     table = NULL, # data frame
-    data = FALSE, # where the data is added to the table, if FALSE no data added to table, if TRUE data added
     env = parent.frame()
   ) {
   ### be nice if you pass a vector, it creates them in a loop, ie you can create multiple schema?
   chk::chk_null_or(schema, vld = chk::vld_string)
-  chk::chk_null_or(table, vld = chk::vld_s3_class)
-  chk::chk_flag(data)
+  #chk::chk_null_or(table, vld = chk::vld_s3_class, "data.frame")
 
   withr::defer({
     try(
@@ -66,7 +64,6 @@ create_local_database <- function(
   DBI::dbClearResult(result2)
 
   if (!is.null(schema)) {
-
     withr::defer({
       try(
         DBI::dbDisconnect(conn_local),
@@ -96,6 +93,36 @@ create_local_database <- function(
     }, envir = env)
     sql <- paste0("CREATE SCHEMA ", schema, ";")
     DBI::dbExecute(conn_local, sql)
+  }
+
+
+  if (!is.null(table)) {
+
+    withr::defer({
+      sql_drop <- paste0(
+        "DROP TABLE ",
+        schema,
+        ".",
+        deparse(substitute(table)),
+        ";"
+      )
+      try(
+        result4 <- DBI::dbSendQuery(conn_local, sql_drop),
+        silent = TRUE
+      )
+      try(
+        DBI::dbClearResult(result4),
+        silent = TRUE
+      )
+    }, envir = env)
+
+    tbl_name <- deparse(substitute(table))
+
+    DBI::dbWriteTable(
+      conn_local,
+      name = DBI::Id(schema = schema, table =  tbl_name),
+      value = table
+    )
   }
 
   # outputs a config file in a temp directory for the new database it made
@@ -188,25 +215,7 @@ clean_up_table <- function(config_path,
 
 
 
-# if (!is.null(table)) {
-#   # need way for table sql code to be dynamically created
-#   withr::defer({
-#     sql_drop <- paste0("DROP TABLE ", schema, ".", deparse(substitute(table)), ";")
-#     try(
-#       result <- DBI::dbSendQuery(conn, sql_drop),
-#       silent = TRUE
-#     )
-#     try(
-#       DBI::dbClearResult(result),
-#       silent = TRUE
-#     )
-#   }, envir = env)
-#   DBI::dbCreateTable(
-#     conn,
-#     name = DBI::Id(schema = schema, table = deparse(substitute(table))),
-#     value = table
-#   )
-# }
+
 #
 # if (data) {
 #   DBI::dbAppendTable(
@@ -215,6 +224,8 @@ clean_up_table <- function(config_path,
 #     value = table
 #   )
 # }
+
+
 
 
 
