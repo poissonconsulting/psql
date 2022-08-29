@@ -1,25 +1,17 @@
-test_that("create schema", {
+test_that("create schema in the local database", {
   skip_on_ci()
-  config_path <- system.file("testhelpers/config.yml", package = "psql")
+  local_config <- create_local_database()
+  clean_up_schema(local_config)
+
   output <- psql_execute_db(
     "CREATE SCHEMA boat_count",
-    config_path = config_path
+    config_path = local_config
   )
-  withr::defer({
-    try(
-      psql_execute_db(
-        "DROP SCHEMA boat_count",
-        config_path = config_path
-      ),
-      silent = TRUE
-    )
-  })
-  query <- DBI::dbGetQuery(
-    psql_connect(config_path = config_path),
-    "SELECT schema_name FROM information_schema.schemata"
-  )
+
+  schema_info <- check_schema_exists(local_config)
+
   expect_equal(output, 0L)
-  expect_true("boat_count" %in% query$schema_name)
+  expect_true("boat_count" %in% schema_info$schema_name)
 })
 
 test_that("create table", {
@@ -68,20 +60,4 @@ test_that("error when function empty", {
 
 
 
-
-test_that("add schema to local teardown database test fixture", {
-  skip_on_ci()
-  local_config <- create_local_database()
-  clean_up_schema(local_config)
-
-  output <- psql_execute_db(
-    "CREATE SCHEMA boat_count",
-    config_path = local_config
-  )
-
-  schema_info <- check_schema_exists(local_config)
-
-  expect_equal(output, 0L)
-  expect_true("boat_count" %in% schema_info$schema_name)
-})
 

@@ -12,7 +12,7 @@ test_that("hosted dump works", {
 
 test_that("local dump works", {
   skip_on_ci()
-  config_path <- system.file("testhelpers/config.yml", package = "psql")
+  config_path <- create_local_database()
   temp_dir <- withr::local_tempdir()
   dump_path <- file.path(temp_dir, "dump_db2.sql")
   psql_backup(
