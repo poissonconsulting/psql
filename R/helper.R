@@ -52,20 +52,51 @@ create_local_database <- function(
   withr::defer({
     clean_cmd <- paste0("DROP DATABASE ", local_dbname, ";")
     try(
-      result <- DBI::dbSendQuery(conn, clean_cmd),
+      result1 <- DBI::dbSendQuery(conn, clean_cmd),
       silent = TRUE
     )
     try(
-      DBI::dbClearResult(result),
+      DBI::dbClearResult(result1),
       silent = TRUE
     )
   }, envir = env)
 
   cmd <- paste0("CREATE DATABASE ", local_dbname, ";")
-  result <- DBI::dbSendQuery(conn, cmd)
-  DBI::dbClearResult(result)
+  result2 <- DBI::dbSendQuery(conn, cmd)
+  DBI::dbClearResult(result2)
 
+  if (!is.null(schema)) {
 
+    withr::defer({
+      try(
+        DBI::dbDisconnect(conn_local),
+        silent = TRUE
+      )
+    }, envir = env)
+
+    conn_local <- DBI::dbConnect(
+      RPostgres::Postgres(),
+      host = "127.0.0.1",
+      port = 5432,
+      dbname = local_dbname,
+      user = NULL,
+      password = NULL
+    )
+
+    withr::defer({
+      sql_drop <- paste0("DROP SCHEMA ", schema, ";")
+      try(
+        result3 <- DBI::dbSendQuery(conn_local, sql_drop),
+        silent = TRUE
+      )
+      try(
+        DBI::dbClearResult(result3),
+        silent = TRUE
+      )
+    }, envir = env)
+    sql <- paste0("CREATE SCHEMA ", schema, ";")
+    DBI::dbExecute(conn_local, sql)
+  }
 
   # outputs a config file in a temp directory for the new database it made
   config_deets <- paste0("default:\n  dbname: ", local_dbname, "\n")
@@ -97,6 +128,7 @@ quick_connection <- function(file) {
   conn
 }
 
+
 check_schema_exists <- function(config_path) {
   withr::defer({DBI::dbDisconnect(conn)})
   conn <- quick_connection(config_path)
@@ -106,6 +138,18 @@ check_schema_exists <- function(config_path) {
   )
   query
 }
+
+check_table_exists <- function(config_path) {
+  withr::defer({DBI::dbDisconnect(conn)})
+  conn <- quick_connection(config_path)
+  query <- DBI::dbGetQuery(
+    conn,
+    "SELECT * FROM pg_tables"
+  )
+  query$tablename
+}
+
+
 
 ### expand to be clean up db with options for schema or tables
 clean_up_schema <- function(config_path,
@@ -122,6 +166,19 @@ clean_up_schema <- function(config_path,
   })
 }
 
+clean_up_table <- function(config_path,
+                           table = "outing",
+                           env = parent.frame()) {
+  withr::defer({try(DBI::dbDisconnect(conn))})
+  conn <- quick_connection(config_path)
+  cmd <- paste0("DROP TABLE ", table)
+  withr::defer({
+    try(
+      DBI::dbExecute(conn, cmd),
+      silent = TRUE
+    )
+  })
+}
 
 
 
@@ -130,22 +187,7 @@ clean_up_schema <- function(config_path,
 
 
 
-# if (!is.null(schema)) {
-#   withr::defer({
-#     sql_drop <- paste0("DROP SCHEMA ", schema, ";")
-#     try(
-#       result <- DBI::dbSendQuery(conn, sql_drop),
-#       silent = TRUE
-#     )
-#     try(
-#       DBI::dbClearResult(result),
-#       silent = TRUE
-#     )
-#   }, envir = env)
-#   sql <- paste0("CREATE SCHEMA ", schema, ";")
-#   DBI::dbExecute(conn, sql)
-# }
-#
+
 # if (!is.null(table)) {
 #   # need way for table sql code to be dynamically created
 #   withr::defer({
