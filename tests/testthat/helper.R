@@ -28,7 +28,7 @@ create_local_database <- function(schema = NULL,
   local_dbname <- tolower(
     rawToChar(
       as.raw(
-        sample(c(65:90,97:122), 12, replace = T)
+        sample(c(65:90, 97:122), 12, TRUE)
       )
     )
   )
@@ -139,7 +139,7 @@ local_connection <- function(file) {
 }
 
 check_schema_exists <- function(config_path) {
-  withr::defer({DBI::dbDisconnect(conn)})
+  withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
@@ -149,7 +149,7 @@ check_schema_exists <- function(config_path) {
 }
 
 check_table_exists <- function(config_path) {
-  withr::defer({DBI::dbDisconnect(conn)})
+  withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
@@ -160,7 +160,7 @@ check_table_exists <- function(config_path) {
 
 check_db_table <- function(config_path, schema, tbl_name) {
   cmd <- paste0("SELECT * FROM ", schema, ".", tbl_name)
-  withr::defer({DBI::dbDisconnect(conn)})
+  withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
@@ -172,7 +172,7 @@ check_db_table <- function(config_path, schema, tbl_name) {
 clean_up_schema <- function(config_path,
                             schema = "boat_count",
                             env = parent.frame()) {
-  withr::defer({DBI::dbDisconnect(conn)})
+  withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP SCHEMA ", schema)
   withr::defer({
@@ -186,7 +186,7 @@ clean_up_schema <- function(config_path,
 clean_up_table <- function(config_path,
                            table = "outing",
                            env = parent.frame()) {
-  withr::defer({DBI::dbDisconnect(conn)})
+  withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP TABLE ", table)
   withr::defer({
