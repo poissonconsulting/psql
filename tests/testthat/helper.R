@@ -9,12 +9,7 @@ create_local_database <- function(schema = NULL,
   chk::chk_flag(data)
   chk::chk_null_or(env, vld = chk::vld_s3_class, class = "environment")
 
-  withr::defer({
-    try(
-      DBI::dbDisconnect(conn),
-      silent = TRUE
-    )
-  }, envir = env)
+  withr::defer(DBI::dbDisconnect(conn), envir = env)
 
   conn <- DBI::dbConnect(
     RPostgres::Postgres(),
@@ -35,14 +30,8 @@ create_local_database <- function(schema = NULL,
 
   withr::defer({
     clean_cmd <- paste0("DROP DATABASE ", local_dbname, ";")
-    try(
-      result1 <- DBI::dbSendQuery(conn, clean_cmd),
-      silent = TRUE
-    )
-    try(
-      DBI::dbClearResult(result1),
-      silent = TRUE
-    )
+    result1 <- DBI::dbSendQuery(conn, clean_cmd)
+    DBI::dbClearResult(result1)
   }, envir = env)
 
   cmd <- paste0("CREATE DATABASE ", local_dbname, ";")
@@ -50,12 +39,7 @@ create_local_database <- function(schema = NULL,
   DBI::dbClearResult(result2)
 
   if (!is.null(schema)) {
-    withr::defer({
-      try(
-        DBI::dbDisconnect(conn_local),
-        silent = TRUE
-      )
-    }, envir = env)
+    withr::defer(DBI::dbDisconnect(conn_local), envir = env)
 
     conn_local <- DBI::dbConnect(
       RPostgres::Postgres(),
@@ -67,14 +51,8 @@ create_local_database <- function(schema = NULL,
     )
     withr::defer({
       sql_drop <- paste0("DROP SCHEMA ", schema, ";")
-      try(
-        result3 <- DBI::dbSendQuery(conn_local, sql_drop),
-        silent = TRUE
-      )
-      try(
-        DBI::dbClearResult(result3),
-        silent = TRUE
-      )
+      try(result3 <- DBI::dbSendQuery(conn_local, sql_drop), silent = TRUE)
+      try(DBI::dbClearResult(result3), silent = TRUE)
     }, envir = env)
     sql <- paste0("CREATE SCHEMA ", schema, ";")
     DBI::dbExecute(conn_local, sql)
@@ -85,14 +63,8 @@ create_local_database <- function(schema = NULL,
       sql_drop <- paste0(
         "DROP TABLE ", schema, ".", deparse(substitute(table)), ";"
       )
-      try(
-        result4 <- DBI::dbSendQuery(conn_local, sql_drop),
-        silent = TRUE
-      )
-      try(
-        DBI::dbClearResult(result4),
-        silent = TRUE
-      )
+      result4 <- DBI::dbSendQuery(conn_local, sql_drop)
+      DBI::dbClearResult(result4)
     }, envir = env)
 
     tbl_name <- deparse(substitute(table))
@@ -175,12 +147,7 @@ clean_up_schema <- function(config_path,
   withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP SCHEMA ", schema)
-  withr::defer({
-    try(
-      DBI::dbExecute(conn, cmd),
-      silent = TRUE
-    )
-  })
+  withr::defer(try(DBI::dbExecute(conn, cmd), silent = TRUE))
 }
 
 clean_up_table <- function(config_path,
@@ -189,12 +156,7 @@ clean_up_table <- function(config_path,
   withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP TABLE ", table)
-  withr::defer({
-    try(
-      DBI::dbExecute(conn, cmd),
-      silent = TRUE
-    )
-  })
+  withr::defer(try(DBI::dbExecute(conn, cmd), silent = TRUE))
 }
 
 create_config_with_value_level <- function(env = parent.frame()) {
