@@ -161,6 +161,7 @@ check_table_exists <- function(config_path) {
 
 check_db_table <- function(config_path, schema, tbl_name) {
   cmd <- paste0("SELECT * FROM ", schema, ".", tbl_name)
+  withr::defer({DBI::dbDisconnect(conn)})
   conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
