@@ -138,7 +138,6 @@ local_connection <- function(file) {
   conn
 }
 
-
 check_schema_exists <- function(config_path) {
   withr::defer({DBI::dbDisconnect(conn)})
   conn <- local_connection(config_path)
