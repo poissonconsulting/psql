@@ -196,3 +196,20 @@ clean_up_table <- function(config_path,
     )
   })
 }
+
+create_config_with_value_level <- function(env = parent.frame()) {
+  # creates a config file with multi leveled values
+  config_first <- create_local_database(env =  env)
+  config_first_deets <- config::get(file = config_first)
+  config_new_deets <- paste0(
+    "default:\n database:\n   dbname: ", config_first_deets$dbname, "\n"
+  )
+  config_new <- withr::local_file(
+    "local_test_config2.yml",
+    .local_envir = env
+  )
+  fileConn <- file(config_new)
+  writeLines(config_new_deets, fileConn)
+  close(fileConn)
+  config_new
+}

@@ -1,3 +1,0 @@
-default:
-  database:
-    dbname: mydb
