@@ -64,7 +64,7 @@ not have to pass the config file each time.
 
 ``` r
 library(psql)
-options(psql.config_path = system.file("testhelpers/config.yml", package = "psql"))
+options(psql.config_path = "config.yml")
 ```
 
 Lets create a schema and table with `psql_execute_db()`

@@ -62,9 +62,16 @@ and then in the terminal run `chmod 0600 ~/.pgpass`
 
 Start by setting the file path for your config file in options so you do not have to pass the config file each time. 
 
-```{r, collapse=TRUE}
+```{r, include=FALSE}
+# background set up so examples look nicer
 library(psql)
-options(psql.config_path = system.file("testhelpers/config.yml", package = "psql"))
+config_path <- psql:::create_local_database()
+options(psql.config_path = config_path)
+```
+
+```{r, collapse=TRUE, eval=FALSE}
+library(psql)
+options(psql.config_path = "config.yml")
 ```
 
 Lets create a schema and table with `psql_execute_db()`
