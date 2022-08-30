@@ -1,23 +1,13 @@
-### idea of set up
-# test_that("add data to database", {
-#   skip_on_ci()
-#   schema <- "truck"
-#   dat <- data.frame(x = 1:5)
-#   config_details <- create_local_database(table = dat)
-#   psql_add_data(x = dat, config_path = config_details)
-#   # tests
-#   ### use code to make sure data was added, could check before and after if you want as well
-#
-# })
-
-create_local_database <- function(
-    schema = NULL,
-    table = NULL, # data frame
-    env = parent.frame()
-  ) {
-  ### be nice if you pass a vector, it creates them in a loop, ie you can create multiple schema?
+create_local_database <- function(schema = NULL,
+                                  table = NULL,
+                                  data = TRUE,
+                                  env = parent.frame()) {
+  # create a local database, schema and table (with or without data)
+  # all objects that are created are removed (complete clean up)
   chk::chk_null_or(schema, vld = chk::vld_string)
-  #chk::chk_null_or(table, vld = chk::vld_s3_class, "data.frame")
+  chk::chk_null_or(table, vld = chk::vld_s3_class, class = "data.frame")
+  chk::chk_flag(data)
+  chk::chk_null_or(env, vld = chk::vld_s3_class, class = "environment")
 
   withr::defer({
     try(
@@ -38,11 +28,7 @@ create_local_database <- function(
   local_dbname <- tolower(
     rawToChar(
       as.raw(
-        sample(
-          c(65:90,97:122),
-          12,
-          replace = T
-        )
+        sample(c(65:90,97:122), 12, replace = T)
       )
     )
   )
@@ -79,7 +65,6 @@ create_local_database <- function(
       user = NULL,
       password = NULL
     )
-
     withr::defer({
       sql_drop <- paste0("DROP SCHEMA ", schema, ";")
       try(
@@ -95,16 +80,10 @@ create_local_database <- function(
     DBI::dbExecute(conn_local, sql)
   }
 
-
   if (!is.null(table)) {
-
     withr::defer({
       sql_drop <- paste0(
-        "DROP TABLE ",
-        schema,
-        ".",
-        deparse(substitute(table)),
-        ";"
+        "DROP TABLE ", schema, ".", deparse(substitute(table)), ";"
       )
       try(
         result4 <- DBI::dbSendQuery(conn_local, sql_drop),
@@ -118,14 +97,21 @@ create_local_database <- function(
 
     tbl_name <- deparse(substitute(table))
 
-    DBI::dbWriteTable(
-      conn_local,
-      name = DBI::Id(schema = schema, table =  tbl_name),
-      value = table
-    )
+    if (data) {
+      DBI::dbWriteTable(
+        conn_local,
+        name = DBI::Id(schema = schema, table =  tbl_name),
+        value = table
+      )
+    } else {
+      DBI::dbCreateTable(
+        conn_local,
+        name = DBI::Id(schema = schema, table =  tbl_name),
+        fields = table
+      )
+    }
   }
 
-  # outputs a config file in a temp directory for the new database it made
   config_deets <- paste0("default:\n  dbname: ", local_dbname, "\n")
   config_file_path <- withr::local_file(
     "local_test_config.yml",
@@ -139,26 +125,23 @@ create_local_database <- function(
 }
 
 
-quick_connection <- function(file) {
-
-  x <- config::get(file = file)
-
+local_connection <- function(file) {
+  config_details <- config::get(file = file)
   conn <- DBI::dbConnect(
     RPostgres::Postgres(),
     host = "127.0.0.1",
     port = 5432,
-    dbname = x$dbname,
+    dbname = config_details$dbname,
     user = NULL,
     password = NULL
   )
-
   conn
 }
 
 
 check_schema_exists <- function(config_path) {
   withr::defer({DBI::dbDisconnect(conn)})
-  conn <- quick_connection(config_path)
+  conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
     "SELECT schema_name FROM information_schema.schemata"
@@ -168,7 +151,7 @@ check_schema_exists <- function(config_path) {
 
 check_table_exists <- function(config_path) {
   withr::defer({DBI::dbDisconnect(conn)})
-  conn <- quick_connection(config_path)
+  conn <- local_connection(config_path)
   query <- DBI::dbGetQuery(
     conn,
     "SELECT * FROM pg_tables"
@@ -176,14 +159,21 @@ check_table_exists <- function(config_path) {
   query$tablename
 }
 
+check_db_table <- function(config_path, schema, tbl_name) {
+  cmd <- paste0("SELECT * FROM ", schema, ".", tbl_name)
+  conn <- local_connection(config_path)
+  query <- DBI::dbGetQuery(
+    conn,
+    cmd
+  )
+  query
+}
 
-
-### expand to be clean up db with options for schema or tables
 clean_up_schema <- function(config_path,
                             schema = "boat_count",
                             env = parent.frame()) {
   withr::defer({DBI::dbDisconnect(conn)})
-  conn <- quick_connection(config_path)
+  conn <- local_connection(config_path)
   cmd <- paste0("DROP SCHEMA ", schema)
   withr::defer({
     try(
@@ -196,8 +186,8 @@ clean_up_schema <- function(config_path,
 clean_up_table <- function(config_path,
                            table = "outing",
                            env = parent.frame()) {
-  withr::defer({try(DBI::dbDisconnect(conn))})
-  conn <- quick_connection(config_path)
+  withr::defer({DBI::dbDisconnect(conn)})
+  conn <- local_connection(config_path)
   cmd <- paste0("DROP TABLE ", table)
   withr::defer({
     try(
@@ -206,26 +196,3 @@ clean_up_table <- function(config_path,
     )
   })
 }
-
-
-
-
-
-
-
-
-
-
-#
-# if (data) {
-#   DBI::dbAppendTable(
-#     conn,
-#     name = DBI::Id(schema = schema, table = deparse(substitute(table))),
-#     value = table
-#   )
-# }
-
-
-
-
-
