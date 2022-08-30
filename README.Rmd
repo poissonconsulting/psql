@@ -9,7 +9,7 @@ output: github_document
 [![codecov](https://codecov.io/gh/poissonconsulting/psql/branch/main/graph/badge.svg?token=7F2LIBp2Tt)](https://codecov.io/gh/poissonconsulting/psql)
 <!-- badges: end -->
 
-`psql` is a wrapper on `DBI` and PostgreSQL commands thus eliminating the need for users to have to learn PostgreSQL. Now R can be used for most tasks except creating the tables and schema. 
+`psql` is a wrapper on `DBI` and PostgreSQL commands thus eliminating the need for users to have to learn PostgreSQL and can just use R.
 
 `psql` is an R package that
 
@@ -36,7 +36,7 @@ Your database connection details should be stored in a config.yml file.
 Set the `psql.config_path` option as the file path to the config file. 
 Set the `psql.value` option as the value in the config file.
 
-Example of a config.yml file:
+Example of a `config.yml` file:
 
 ```
 default:
@@ -52,7 +52,7 @@ default:
 A `.pgpass` file is required (if your database has a password) when using the `psql_backup()` function. 
 The [postgresql website](https://www.postgresql.org/docs/current/libpq-pgpass.html) provides details on how to set it up.
 
-Currently add the following file named `.pgpass` to `~`
+Currently add the following file named `.pgpass` to your home directory (`~`)
 ```
 *:*:*:*:<password>
 ```
