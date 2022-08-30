@@ -14,7 +14,7 @@ test_that("working local connection when nothing supplied", {
 
 test_that("working local connection of a different db from config", {
   skip_on_ci()
-  path <- system.file("testhelpers/config.yml", package = "psql")
+  path <- create_local_database()
   conn <- psql_connect(config_path = path)
   withr::defer(DBI::dbDisconnect(conn))
   expect_s4_class(conn, "PqConnection")
@@ -22,7 +22,7 @@ test_that("working local connection of a different db from config", {
 
 test_that("working local connection of different db from config other value", {
   skip_on_ci()
-  path <- system.file("testhelpers/config-value.yml", package = "psql")
+  path <- create_config_with_value_level()
   conn <- psql_connect(config_path = path, config_value = "database")
   withr::defer(DBI::dbDisconnect(conn))
   expect_s4_class(conn, "PqConnection")

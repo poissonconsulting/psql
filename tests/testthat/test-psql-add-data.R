@@ -1,44 +1,52 @@
-dat <- data.frame(
-  x = c(1:10),
-  y = c(21:30)
-)
-
-test_that("add data to database", {
+test_that("add data to table that is a new table (has no current data)", {
   skip_on_ci()
-  # create the schema and table
-  config_path <- system.file("testhelpers/config.yml", package = "psql")
-  psql_execute_db("CREATE SCHEMA boat_count", config_path = config_path)
-  withr::defer(
-    try(
-      psql_execute_db(
-        "DROP SCHEMA boat_count",
-        config_path = config_path
-      ),
-      silent = TRUE
-    )
+  # set up
+  outing <- data.frame(x = 1:5, y = 6:10)
+  local_config <- create_local_database(
+    schema = "boat_count",
+    table = outing,
+    data = FALSE
   )
-  psql_execute_db(
-    "CREATE TABLE boat_count.dat (
-     x INTEGER NOT NULL,
-     y INTEGER)",
-    config_path = config_path
+  # testing
+  output <- psql_add_data(
+    outing,
+    schema = "boat_count",
+    config_path = local_config
   )
-  withr::defer(
-    try(
-      psql_execute_db(
-        "DROP TABLE boat_count.dat",
-        config_path = config_path
-      ),
-      silent = TRUE
-    )
+  expect_equal(output, 5)
+
+  query <- check_db_table(
+    config_path = local_config,
+    schema = "boat_count",
+    tbl_name = "outing"
   )
-  # execute code to be tested
-  output <- psql_add_data(dat, schema = "boat_count", config_path = config_path)
-  query <- DBI::dbGetQuery(
-    psql_connect(config_path = config_path),
-    "SELECT * FROM boat_count.dat"
+  expect_equal(query, outing)
+})
+
+test_that("add data to table when data is already in the table", {
+  skip_on_ci()
+  # set up
+  outing <- data.frame(x = 1:5, y = 6:10)
+
+  local_config <- create_local_database(
+    schema = "boat_count",
+    table = outing
   )
-  # tests
-  expect_equal(output, 10)
-  expect_equal(query, dat)
+  # testing
+  outing_new <- data.frame(x = 6:10, y = 11:15)
+  output <- psql_add_data(
+    tbl = outing_new,
+    tbl_name = "outing",
+    schema = "boat_count",
+    config_path = local_config
+  )
+  expect_equal(output, 5)
+
+  query_data <- check_db_table(
+    config_path = local_config,
+    schema = "boat_count",
+    tbl_name = "outing"
+  )
+  outing_all <- rbind(outing, outing_new)
+  expect_equal(query_data, outing_all)
 })

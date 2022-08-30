@@ -8,8 +8,7 @@
 <!-- badges: end -->
 
 `psql` is a wrapper on `DBI` and PostgreSQL commands thus eliminating
-the need for users to have to learn PostgreSQL. Now R can be used for
-most tasks except creating the tables and schema.
+the need for users to have to learn PostgreSQL and can just use R.
 
 `psql` is an R package that
 
@@ -35,7 +34,7 @@ Your database connection details should be stored in a config.yml file.
 Set the `psql.config_path` option as the file path to the config file.
 Set the `psql.value` option as the value in the config file.
 
-Example of a config.yml file:
+Example of a `config.yml` file:
 
     default:
       user: "postgres"
@@ -51,7 +50,8 @@ using the `psql_backup()` function. The [postgresql
 website](https://www.postgresql.org/docs/current/libpq-pgpass.html)
 provides details on how to set it up.
 
-Currently add the following file named `.pgpass` to `~`
+Currently add the following file named `.pgpass` to your home directory
+(`~`)
 
     *:*:*:*:<password>
 
@@ -64,7 +64,7 @@ not have to pass the config file each time.
 
 ``` r
 library(psql)
-options(psql.config_path = system.file("testhelpers/config.yml", package = "psql"))
+options(psql.config_path = "config.yml")
 ```
 
 Lets create a schema and table with `psql_execute_db()`
