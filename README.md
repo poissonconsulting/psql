@@ -32,7 +32,7 @@ devtools::install_github("poissonconsulting/psql")
 
 Your database connection details should be stored in a config.yml file.
 Set the `psql.config_path` option as the file path to the config file.
-Set the `psql.value` option as the value in the config file.
+Set the `psql.config_value` option as the value in the config file.
 
 Example of a `config.yml` file:
 

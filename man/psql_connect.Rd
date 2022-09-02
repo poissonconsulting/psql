@@ -6,7 +6,7 @@
 \usage{
 psql_connect(
   config_path = getOption("psql.config_path", NULL),
-  config_value = getOption("psql.value", NULL)
+  config_value = getOption("psql.config_value", NULL)
 )
 }
 \arguments{
@@ -14,7 +14,7 @@ psql_connect(
 The default value grabs the file path from the psql.config_path option.}
 
 \item{config_value}{A string of the name of value. The default value grabs
-the value from the psql.value option.}
+the value from the psql.config_value option.}
 }
 \value{
 An S4 object that inherits from DBIConnection.
@@ -32,7 +32,7 @@ on reading in the config data.
 
 If no config details are passed it will connect to your local cluster.
 
-Set the values for \code{psql.config_path} and \code{psql.value} for the function to
+Set the values for \code{psql.config_path} and \code{psql.config_value} for the function to
 grab config details. The values can be set \code{options()}.
 }
 \examples{

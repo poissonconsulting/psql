@@ -17,7 +17,7 @@
 psql_read_table <- function(tbl_name,
                             schema = "public",
                             config_path = getOption("psql.config_path", NULL),
-                            config_value = getOption("psql.value", NULL)) {
+                            config_value = getOption("psql.config_value", NULL)) {
   chk::chk_string(tbl_name)
   chk::chk_string(schema)
 

@@ -15,7 +15,7 @@
 #'
 #'   If no config details are passed it will connect to your local cluster.
 #'
-#'   Set the values for `psql.config_path` and `psql.value` for the function to
+#'   Set the values for `psql.config_path` and `psql.config_value` for the function to
 #'   grab config details. The values can be set `options()`.
 #'
 #' @examples
@@ -30,7 +30,7 @@
 #' DBI::dbDisconnect(conn)
 #' }
 psql_connect <- function(config_path = getOption("psql.config_path", NULL),
-                         config_value = getOption("psql.value", NULL)) {
+                         config_value = getOption("psql.config_value", NULL)) {
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
