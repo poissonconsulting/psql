@@ -30,7 +30,7 @@
 #' DBI::dbDisconnect(conn)
 #' }
 psql_connect <- function(config_path = getOption("psql.config_path", NULL),
-                         config_value = getOption("psql.config_value", NULL)) {
+                         config_value = getOption("psql.config_value", "default")) {
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 

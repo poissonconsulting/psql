@@ -9,7 +9,7 @@ psql_add_data(
   schema = "public",
   tbl_name = NULL,
   config_path = getOption("psql.config_path", NULL),
-  config_value = getOption("psql.config_value", NULL)
+  config_value = getOption("psql.config_value", "default")
 )
 }
 \arguments{

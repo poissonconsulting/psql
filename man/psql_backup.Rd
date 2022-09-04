@@ -7,7 +7,7 @@
 psql_backup(
   path = "dump_db.sql",
   config_path = getOption("psql.config_path", NULL),
-  config_value = getOption("psql.config_value", NULL)
+  config_value = getOption("psql.config_value", "default")
 )
 }
 \arguments{
