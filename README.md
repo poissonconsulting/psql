@@ -43,11 +43,10 @@ Example of a `config.yml` file:
       port: 5432
       password: !expr Sys.getenv("DM_PASSWORD")
 
-#### connecting to multiple databases
+##### connecting to multiple databases
 
 You can use a single config file to connect to multiple databases. You
-must have a default connection as shown in the example `config.yml` file
-above.
+must have a default connection as shown in both examples.
 
     default:
       user: "postgres"
@@ -63,7 +62,7 @@ above.
       port: 5432
       password: !expr Sys.getenv("DATA_ANALYST_PASSWORD")
 
-To use the credentials supplied for the data_user set
+To access the database with the data analyst credentials set the
 `psql.config_value` to `"data_user"` from the default option
 `"default"`.
 
