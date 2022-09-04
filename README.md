@@ -43,6 +43,30 @@ Example of a `config.yml` file:
       port: 5432
       password: !expr Sys.getenv("DM_PASSWORD")
 
+#### connecting to multiple databases
+
+You can use a single config file to connect to multiple databases. You
+must have a default connection as shown in the example `config.yml` file
+above.
+
+    default:
+      user: "postgres"
+      host: 127.0.0.1
+      dbname: "postgres"
+      port: 5432
+      password: !expr Sys.getenv("DM_PASSWORD")
+
+    data_user:
+      user: "data_analyst"
+      host: 127.0.0.1
+      dbname: "postgres"
+      port: 5432
+      password: !expr Sys.getenv("DATA_ANALYST_PASSWORD")
+
+To use the credentials supplied for the data_user set
+`psql.config_value` to `"data_user"` from the default option
+`"default"`.
+
 ### pgpass file
 
 A `.pgpass` file is required (if your database has a password) when
