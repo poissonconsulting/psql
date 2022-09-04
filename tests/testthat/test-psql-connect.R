@@ -1,6 +1,6 @@
-test_that("working local connection when NULL supplied", {
+test_that("working local connection when default values supplied", {
   skip_on_ci()
-  conn <- psql_connect(config_path = NULL, config_value = NULL)
+  conn <- psql_connect(config_path = NULL, config_value = "default")
   withr::defer(DBI::dbDisconnect(conn))
   expect_s4_class(conn, "PqConnection")
 })

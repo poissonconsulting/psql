@@ -34,7 +34,7 @@ psql_connect <- function(config_path = getOption("psql.config_path", NULL),
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
-  if (is.null(config_path) && is.null(config_value)) {
+  if (is.null(config_path) && config_value == "default") {
     config <- list(
       host = NULL,
       port = NULL,
@@ -43,7 +43,7 @@ psql_connect <- function(config_path = getOption("psql.config_path", NULL),
       password = NULL
     )
   } else {
-    config <- config::get(value = config_value, file = config_path)
+    config <- config::get(config = config_value, file = config_path)
   }
   conn <- DBI::dbConnect(
     RPostgres::Postgres(),
