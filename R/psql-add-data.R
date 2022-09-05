@@ -25,7 +25,7 @@ psql_add_data <- function(tbl,
                           schema = "public",
                           tbl_name = NULL,
                           config_path = getOption("psql.config_path", NULL),
-                          config_value = getOption("psql.value", NULL)) {
+                          config_value = getOption("psql.config_value", "default")) {
   chk::chk_string(schema)
 
   if (is.null(tbl_name)) tbl_name <- deparse((substitute(tbl)))

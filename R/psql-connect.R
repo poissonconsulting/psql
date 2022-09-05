@@ -15,7 +15,7 @@
 #'
 #'   If no config details are passed it will connect to your local cluster.
 #'
-#'   Set the values for `psql.config_path` and `psql.value` for the function to
+#'   Set the values for `psql.config_path` and `psql.config_value` for the function to
 #'   grab config details. The values can be set `options()`.
 #'
 #' @examples
@@ -30,11 +30,11 @@
 #' DBI::dbDisconnect(conn)
 #' }
 psql_connect <- function(config_path = getOption("psql.config_path", NULL),
-                         config_value = getOption("psql.value", NULL)) {
+                         config_value = getOption("psql.config_value", "default")) {
   chk::chk_null_or(config_path, vld = chk::vld_string)
   chk::chk_null_or(config_value, vld = chk::vld_string)
 
-  if (is.null(config_path) && is.null(config_value)) {
+  if (is.null(config_path) && config_value == "default") {
     config <- list(
       host = NULL,
       port = NULL,
@@ -43,7 +43,7 @@ psql_connect <- function(config_path = getOption("psql.config_path", NULL),
       password = NULL
     )
   } else {
-    config <- config::get(value = config_value, file = config_path)
+    config <- config::get(config = config_value, file = config_path)
   }
   conn <- DBI::dbConnect(
     RPostgres::Postgres(),

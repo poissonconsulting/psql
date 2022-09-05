@@ -32,7 +32,7 @@ devtools::install_github("poissonconsulting/psql")
 
 Your database connection details should be stored in a config.yml file.
 Set the `psql.config_path` option as the file path to the config file.
-Set the `psql.value` option as the value in the config file.
+Set the `psql.config_value` option as the value in the config file.
 
 Example of a `config.yml` file:
 
@@ -42,6 +42,29 @@ Example of a `config.yml` file:
       dbname: "postgres"
       port: 5432
       password: !expr Sys.getenv("DM_PASSWORD")
+
+##### connecting to multiple databases
+
+You can use a single config file to connect to multiple databases. You
+must have a default connection as shown in both examples.
+
+    default:
+      user: "postgres"
+      host: 127.0.0.1
+      dbname: "postgres"
+      port: 5432
+      password: !expr Sys.getenv("DM_PASSWORD")
+
+    data_user:
+      user: "data_analyst"
+      host: 127.0.0.1
+      dbname: "postgres"
+      port: 5432
+      password: !expr Sys.getenv("DATA_ANALYST_PASSWORD")
+
+To access the database with the data analyst credentials set the
+`psql.config_value` to `"data_user"` from the default option
+`"default"`.
 
 ### pgpass file
 
