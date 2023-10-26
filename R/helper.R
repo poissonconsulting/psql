@@ -28,11 +28,14 @@ create_local_database <- function(schema = NULL,
     )
   )
 
-  withr::defer({
-    clean_cmd <- paste0("DROP DATABASE ", local_dbname, ";")
-    result1 <- DBI::dbSendQuery(conn, clean_cmd)
-    DBI::dbClearResult(result1)
-  }, envir = env)
+  withr::defer(
+    {
+      clean_cmd <- paste0("DROP DATABASE ", local_dbname, ";")
+      result1 <- DBI::dbSendQuery(conn, clean_cmd)
+      DBI::dbClearResult(result1)
+    },
+    envir = env
+  )
 
   cmd <- paste0("CREATE DATABASE ", local_dbname, ";")
   result2 <- DBI::dbSendQuery(conn, cmd)
@@ -49,36 +52,42 @@ create_local_database <- function(schema = NULL,
       user = NULL,
       password = NULL
     )
-    withr::defer({
-      sql_drop <- paste0("DROP SCHEMA ", schema, ";")
-      try(result3 <- DBI::dbSendQuery(conn_local, sql_drop), silent = TRUE)
-      try(DBI::dbClearResult(result3), silent = TRUE)
-    }, envir = env)
+    withr::defer(
+      {
+        sql_drop <- paste0("DROP SCHEMA ", schema, ";")
+        try(result3 <- DBI::dbSendQuery(conn_local, sql_drop), silent = TRUE)
+        try(DBI::dbClearResult(result3), silent = TRUE)
+      },
+      envir = env
+    )
     sql <- paste0("CREATE SCHEMA ", schema, ";")
     DBI::dbExecute(conn_local, sql)
   }
 
   if (!is.null(table)) {
-    withr::defer({
-      sql_drop <- paste0(
-        "DROP TABLE ", schema, ".", deparse(substitute(table)), ";"
-      )
-      result4 <- DBI::dbSendQuery(conn_local, sql_drop)
-      DBI::dbClearResult(result4)
-    }, envir = env)
+    withr::defer(
+      {
+        sql_drop <- paste0(
+          "DROP TABLE ", schema, ".", deparse(substitute(table)), ";"
+        )
+        result4 <- DBI::dbSendQuery(conn_local, sql_drop)
+        DBI::dbClearResult(result4)
+      },
+      envir = env
+    )
 
     tbl_name <- deparse(substitute(table))
 
     if (data) {
       DBI::dbWriteTable(
         conn_local,
-        name = DBI::Id(schema = schema, table =  tbl_name),
+        name = DBI::Id(schema = schema, table = tbl_name),
         value = table
       )
     } else {
       DBI::dbCreateTable(
         conn_local,
-        name = DBI::Id(schema = schema, table =  tbl_name),
+        name = DBI::Id(schema = schema, table = tbl_name),
         fields = table
       )
     }
@@ -89,9 +98,9 @@ create_local_database <- function(schema = NULL,
     "local_test_config.yml",
     .local_envir = env
   )
-  fileConn <- file(config_file_path)
-  writeLines(config_deets, fileConn)
-  close(fileConn)
+  file_conn <- file(config_file_path)
+  writeLines(config_deets, file_conn)
+  close(file_conn)
 
   config_file_path
 }
@@ -161,7 +170,7 @@ clean_up_table <- function(config_path,
 
 create_config_with_value_level <- function(env = parent.frame()) {
   # creates a config file with multi leveled values
-  config_first <- create_local_database(env =  env)
+  config_first <- create_local_database(env = env)
   config_first_deets <- config::get(file = config_first)
   config_new_deets <- paste0(
     "default:\n database:\n   dbname: ", config_first_deets$dbname, "\n"
@@ -170,8 +179,8 @@ create_config_with_value_level <- function(env = parent.frame()) {
     "local_test_config2.yml",
     .local_envir = env
   )
-  fileConn <- file(config_new)
-  writeLines(config_new_deets, fileConn)
-  close(fileConn)
+  file_conn <- file(config_new)
+  writeLines(config_new_deets, file_conn)
+  close(file_conn)
   config_new
 }
