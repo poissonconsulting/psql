@@ -24,7 +24,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.PRIVATE_ACTIONS_PAT }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: r-lib/actions/setup-r@master
       - name: Install dependencies
         run: |
