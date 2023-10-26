@@ -15,8 +15,8 @@
 #'
 #'   If no config details are passed it will connect to your local cluster.
 #'
-#'   Set the values for `psql.config_path` and `psql.config_value` for the function to
-#'   grab config details. The values can be set `options()`.
+#'   Set the values for `psql.config_path` and `psql.config_value` for the
+#'   function to grab config details. The values can be set `options()`.
 #'
 #' @examples
 #' \dontrun{

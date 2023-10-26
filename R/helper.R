@@ -98,9 +98,9 @@ create_local_database <- function(schema = NULL,
     "local_test_config.yml",
     .local_envir = env
   )
-  fileConn <- file(config_file_path)
-  writeLines(config_deets, fileConn)
-  close(fileConn)
+  file_conn <- file(config_file_path)
+  writeLines(config_deets, file_conn)
+  close(file_conn)
 
   config_file_path
 }
@@ -179,8 +179,8 @@ create_config_with_value_level <- function(env = parent.frame()) {
     "local_test_config2.yml",
     .local_envir = env
   )
-  fileConn <- file(config_new)
-  writeLines(config_new_deets, fileConn)
-  close(fileConn)
+  file_conn <- file(config_new)
+  writeLines(config_new_deets, file_conn)
+  close(file_conn)
   config_new
 }

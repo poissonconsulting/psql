@@ -34,8 +34,8 @@ on reading in the config data.
 
 If no config details are passed it will connect to your local cluster.
 
-Set the values for \code{psql.config_path} and \code{psql.config_value} for the function to
-grab config details. The values can be set \code{options()}.
+Set the values for \code{psql.config_path} and \code{psql.config_value} for the
+function to grab config details. The values can be set \code{options()}.
 }
 \examples{
 \dontrun{
