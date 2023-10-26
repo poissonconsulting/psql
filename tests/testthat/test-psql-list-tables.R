@@ -14,7 +14,7 @@ test_that("list local tables", {
   # testing
   output <- psql_list_tables(
     "boat_count",
-    config_path =  local_config
+    config_path = local_config
   )
   expect_equal(output, "outing")
 })
