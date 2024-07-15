@@ -6,24 +6,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Connecting, reading and writing to PostgreSQL databases • psql</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Connecting, reading and writing to PostgreSQL databases">
-<meta property="og:description" content="Streamlines interacting with PostgreSQL
-    databases. You can easily connect, create databases, add and access
-    your data, load tables as R objects. This allows users who are not
-    familar with PostgreSQL to easily pull and update their data stored in
-    a PostgreSQL database.">
+<meta property="og:description" content="Streamlines interacting with PostgreSQL databases. You can easily connect, create databases, add and access your data, load tables as R objects. This allows users who are not familar with PostgreSQL to easily pull and update their data stored in a PostgreSQL database.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -58,7 +54,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="contents col-md-9">
@@ -85,36 +81,36 @@
 <div class="section level3">
 <h3 id="install-postgres-locally-by-running-the-following">Install postgres locally by running the following<a class="anchor" aria-label="anchor" href="#install-postgres-locally-by-running-the-following"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>brew install postgresql</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>brew install postgresql</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="config-file">config file<a class="anchor" aria-label="anchor" href="#config-file"></a>
 </h3>
 <p>Your database connection details should be stored in a config.yml file. Set the <code>psql.config_path</code> option as the file path to the config file. Set the <code>psql.config_value</code> option as the value in the config file.</p>
 <p>Example of a <code>config.yml</code> file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>default<span class="sc">:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"postgres"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DM_PASSWORD"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>default<span class="sc">:</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"postgres"</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DM_PASSWORD"</span>)</span></code></pre></div>
 <div class="section level5">
 <h5 id="connecting-to-multiple-databases">connecting to multiple databases<a class="anchor" aria-label="anchor" href="#connecting-to-multiple-databases"></a>
 </h5>
 <p>You can use a single config file to connect to multiple databases. You must have a default connection as shown in both examples.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>default<span class="sc">:</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"postgres"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DM_PASSWORD"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>data_user<span class="sc">:</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"data_analyst"</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DATA_ANALYST_PASSWORD"</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>default<span class="sc">:</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"postgres"</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DM_PASSWORD"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>data_user<span class="sc">:</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  user<span class="sc">:</span> <span class="st">"data_analyst"</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  host<span class="sc">:</span> <span class="dv">127</span>.<span class="dv">0</span>.<span class="fl">0.1</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  dbname<span class="sc">:</span> <span class="st">"postgres"</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  port<span class="sc">:</span> <span class="dv">5432</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  password<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DATA_ANALYST_PASSWORD"</span>)</span></code></pre></div>
 <p>To access the database with the data analyst credentials set the <code>psql.config_value</code> to <code>"data_user"</code> from the default option <code>"default"</code>.</p>
 </div>
 </div>
@@ -123,7 +119,7 @@
 </h3>
 <p>A <code>.pgpass</code> file is required (if your database has a password) when using the <code><a href="reference/psql_backup.html">psql_backup()</a></code> function. The <a href="https://www.postgresql.org/docs/current/libpq-pgpass.html" class="external-link">postgresql website</a> provides details on how to set it up.</p>
 <p>Currently add the following file named <code>.pgpass</code> to your home directory (<code>~</code>)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span><span class="er">:*:*:*:&lt;</span>password<span class="sc">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">*</span><span class="er">:*:*:*:&lt;</span>password<span class="sc">&gt;</span></span></code></pre></div>
 <p>and then in the terminal run <code>chmod 0600 ~/.pgpass</code></p>
 </div>
 </div>
@@ -245,16 +241,16 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

@@ -1,54 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/SECURITY.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/params.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_add_data.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_backup.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_connect.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_create_db.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_execute_db.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_list_tables.html</loc>
-  </url>
-  <url>
-    <loc>/reference/psql_read_table.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/SECURITY.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/params.html</loc></url>
+<url><loc>/reference/psql_add_data.html</loc></url>
+<url><loc>/reference/psql_backup.html</loc></url>
+<url><loc>/reference/psql_connect.html</loc></url>
+<url><loc>/reference/psql_create_db.html</loc></url>
+<url><loc>/reference/psql_execute_db.html</loc></url>
+<url><loc>/reference/psql_list_tables.html</loc></url>
+<url><loc>/reference/psql_read_table.html</loc></url>
 </urlset>
+
