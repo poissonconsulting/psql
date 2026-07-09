@@ -22,9 +22,11 @@
 #'   comment TEXT)"
 #' )
 #' }
-psql_execute_db <- function(sql,
-                            config_path = getOption("psql.config_path", NULL),
-                            config_value = getOption("psql.config_value", "default")) {
+psql_execute_db <- function(
+  sql,
+  config_path = getOption("psql.config_path", NULL),
+  config_value = getOption("psql.config_value", "default")
+) {
   chk::chk_string(sql)
 
   conn <- psql_connect(config_path, config_value)

@@ -22,9 +22,11 @@
 #' \dontrun{
 #' psql_backup("/Users/user1/Dumps/dump_db.sql")
 #' }
-psql_backup <- function(path = "dump_db.sql",
-                        config_path = getOption("psql.config_path", NULL),
-                        config_value = getOption("psql.config_value", "default")) {
+psql_backup <- function(
+  path = "dump_db.sql",
+  config_path = getOption("psql.config_path", NULL),
+  config_value = getOption("psql.config_value", "default")
+) {
   chk::chk_string(path)
 
   # ensure user has psql on thier system before proceeding
@@ -41,9 +43,7 @@ psql_backup <- function(path = "dump_db.sql",
   # ensure .pgpass file is present (except when not needed)
   if (!is.null(config$password)) {
     if (!file.exists("~/.pgpass")) {
-      stop("You must have a `~/.pgpass` file before proceeding.",
-        call. = FALSE
-      )
+      stop("You must have a `~/.pgpass` file before proceeding.", call. = FALSE)
     }
   }
 
@@ -63,9 +63,7 @@ psql_backup <- function(path = "dump_db.sql",
 
   # errors because pg_dump creates new file even when it errors out
   if (file.size(path) == 0) {
-    stop("Dumped database is zero bytes, transfer failed.",
-      call. = FALSE
-    )
+    stop("Dumped database is zero bytes, transfer failed.", call. = FALSE)
   }
 
   invisible(TRUE)
