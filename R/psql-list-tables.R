@@ -16,9 +16,11 @@
 #' )
 #' psql_list_tables()
 #' }
-psql_list_tables <- function(schema = "public",
-                             config_path = getOption("psql.config_path", NULL),
-                             config_value = getOption("psql.config_value", "default")) {
+psql_list_tables <- function(
+  schema = "public",
+  config_path = getOption("psql.config_path", NULL),
+  config_value = getOption("psql.config_value", "default")
+) {
   chk::chk_string(schema)
 
   conn <- psql_connect(config_path, config_value)

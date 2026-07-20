@@ -8,3 +8,5 @@
 ^scripts$
 ^docs$
 ^SECURITY\.md$
+^[.]?air[.]toml$
+^\.vscode$

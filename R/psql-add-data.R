@@ -21,14 +21,18 @@
 #' psql_add_data(outing, "creel")
 #' psql_add_data(outing_new, "creel", "outing")
 #' }
-psql_add_data <- function(tbl,
-                          schema = "public",
-                          tbl_name = NULL,
-                          config_path = getOption("psql.config_path", NULL),
-                          config_value = getOption("psql.config_value", "default")) {
+psql_add_data <- function(
+  tbl,
+  schema = "public",
+  tbl_name = NULL,
+  config_path = getOption("psql.config_path", NULL),
+  config_value = getOption("psql.config_value", "default")
+) {
   chk::chk_string(schema)
 
-  if (is.null(tbl_name)) tbl_name <- deparse((substitute(tbl)))
+  if (is.null(tbl_name)) {
+    tbl_name <- deparse((substitute(tbl)))
+  }
   chk::chk_string(tbl_name)
 
   conn <- psql_connect(config_path, config_value)

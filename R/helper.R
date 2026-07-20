@@ -1,7 +1,9 @@
-create_local_database <- function(schema = NULL,
-                                  table = NULL,
-                                  data = TRUE,
-                                  env = parent.frame()) {
+create_local_database <- function(
+  schema = NULL,
+  table = NULL,
+  data = TRUE,
+  env = parent.frame()
+) {
   # create a local database, schema and table (with or without data)
   # all objects that are created are removed (complete clean up)
   chk::chk_null_or(schema, vld = chk::vld_string)
@@ -68,7 +70,11 @@ create_local_database <- function(schema = NULL,
     withr::defer(
       {
         sql_drop <- paste0(
-          "DROP TABLE ", schema, ".", deparse(substitute(table)), ";"
+          "DROP TABLE ",
+          schema,
+          ".",
+          deparse(substitute(table)),
+          ";"
         )
         result4 <- DBI::dbSendQuery(conn_local, sql_drop)
         DBI::dbClearResult(result4)
@@ -150,18 +156,22 @@ check_db_table <- function(config_path, schema, tbl_name) {
   query
 }
 
-clean_up_schema <- function(config_path,
-                            schema = "boat_count",
-                            env = parent.frame()) {
+clean_up_schema <- function(
+  config_path,
+  schema = "boat_count",
+  env = parent.frame()
+) {
   withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP SCHEMA ", schema)
   withr::defer(try(DBI::dbExecute(conn, cmd), silent = TRUE))
 }
 
-clean_up_table <- function(config_path,
-                           table = "outing",
-                           env = parent.frame()) {
+clean_up_table <- function(
+  config_path,
+  table = "outing",
+  env = parent.frame()
+) {
   withr::defer(DBI::dbDisconnect(conn))
   conn <- local_connection(config_path)
   cmd <- paste0("DROP TABLE ", table)
@@ -173,7 +183,9 @@ create_config_with_value_level <- function(env = parent.frame()) {
   config_first <- create_local_database(env = env)
   config_first_deets <- config::get(file = config_first)
   config_new_deets <- paste0(
-    "default:\n database:\n   dbname: ", config_first_deets$dbname, "\n"
+    "default:\n database:\n   dbname: ",
+    config_first_deets$dbname,
+    "\n"
   )
   config_new <- withr::local_file(
     "local_test_config2.yml",
